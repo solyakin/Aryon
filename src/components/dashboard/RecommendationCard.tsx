@@ -51,7 +51,7 @@ const RecommendationCard = ({ item, status }: RecommendationCardProps) => {
                     <FaGoogleDrive className="w-5 h-5 text-gray-600" />
                 </div>
             </div>
-            <p className="text-sm text-gray-600">{item?.description}</p>
+            <p className="text-gray-600 mb-3">{item?.description}</p>
             {item?.reasons && item?.reasons?.length > 0 && (
                 <div className="mt-2 flex items-center gap-2">
                     {item?.frameworks?.map((framework, index) => (

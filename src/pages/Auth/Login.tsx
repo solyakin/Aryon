@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import logo from "@/assets/aryonlogo.png";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useUserAuthContext } from "@/context/user/user-hooks";
@@ -59,9 +60,12 @@ const LoginForm = () => {
     };
 
     return (
-    <div className={cn("min-h-screen flex flex-col justify-center items-center gap-6 py-8")}>
+    <div className={cn("min-h-screen flex flex-col bg-primary-foreground justify-center items-center gap-6 py-8")}>
       <Card className="w-full max-w-sm mx-auto">
         <CardHeader>
+            <div className="p-1 rounded-sm bg-teal-50 mx-auto mb-5">
+                <img src={logo} alt="Aryon Logo" className="w-12 h-12 object-cover" />
+            </div>
           <CardTitle>Login to your account</CardTitle>
           <CardDescription>
             Enter your email below to login to your account
@@ -95,14 +99,6 @@ const LoginForm = () => {
                 {errors.password && (
                     <p className="text-sm text-red-500">{errors.password.message}</p>
                 )}
-              </div>
-              <div className="flex justify-end">
-                <Link
-                    to="#"
-                    className="ml-auto inline-block text-sm"
-                  >
-                    Forgot your password?
-                  </Link>
               </div>
               <div className="flex flex-col gap-3">
                 <Button 

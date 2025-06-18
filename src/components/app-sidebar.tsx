@@ -2,7 +2,6 @@ import * as React from "react"
 import {
   BadgeInfo,
   CalendarFold,
-  GalleryVerticalEnd,
   LayoutDashboard,
   NotebookText,
   Unlink,
@@ -18,6 +17,7 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar"
+import logo from "@/assets/aryonlogo.png"; 
 
 const data = {
   user: {
@@ -27,7 +27,7 @@ const data = {
   },
   company: {
     name: "Aryon Inc",
-    logo: GalleryVerticalEnd,
+    logo: logo,
     plan: "Enterprise",
   },
   navMain: [
@@ -64,7 +64,7 @@ const data = {
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader>
+      <SidebarHeader className="border-b">
         <TeamSwitcher company={data.company} />
       </SidebarHeader>
       <SidebarContent>

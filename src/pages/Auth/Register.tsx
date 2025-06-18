@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import logo from "@/assets/aryonlogo.png";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
@@ -54,12 +55,15 @@ const Register = () => {
   };
 
   return (
-    <div className={cn("min-h-screen flex flex-col justify-center items-center gap-6 py-8")}>
+    <div className={cn("min-h-screen bg-primary-foreground flex flex-col justify-center items-center gap-6 py-8")}>
       <Card className="w-full max-w-sm mx-auto">
         <CardHeader>
+            <div className="p-1 rounded-sm bg-teal-50 mx-auto mb-5">
+                <img src={logo} alt="Aryon Logo" className="w-12 h-12 object-cover" />
+            </div>
           <CardTitle>Create a new account</CardTitle>
           <CardDescription>
-            Enter your username below to create a new account
+            create a new account below
           </CardDescription>
         </CardHeader>
         <CardContent>
