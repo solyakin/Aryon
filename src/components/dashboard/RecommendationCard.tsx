@@ -67,11 +67,11 @@ const RecommendationCard = ({ item, status }: RecommendationCardProps) => {
             </div>
             <div className="flex gap-2 justify-center items-center mt-4">
                 <h4 className="text-sm font-semibold">Value score</h4>
-                <div className="flex items-center gap-1">
-                    <div className="w-2.5 h-2.5 bg-teal-600 rounded-[1.5px]"></div>
-                    <div className="w-2.5 h-2.5 bg-teal-600 rounded-[1.5px]"></div>
-                    <div className="w-2.5 h-2.5 bg-teal-600 rounded-[1.5px]"></div>
-                    <div className="w-2.5 h-2.5 bg-gray-300 rounded-[1.5px]"></div>
+               <div className="flex items-center gap-1">
+                    <div className={`w-2.5 h-2.5 ${item?.score >= 25 ? 'bg-teal-600' : 'bg-gray-300'} rounded-[1.5px]`}></div>
+                    <div className={`w-2.5 h-2.5 ${item?.score >= 50 ? 'bg-teal-600' : 'bg-gray-300'} rounded-[1.5px]`}></div>
+                    <div className={`w-2.5 h-2.5 ${item?.score >= 75 ? 'bg-teal-600' : 'bg-gray-300'} rounded-[1.5px]`}></div>
+                    <div className={`w-2.5 h-2.5 ${item?.score >= 100 ? 'bg-teal-600' : 'bg-gray-300'} rounded-[1.5px]`}></div>
                 </div>
             </div>
         </div>
