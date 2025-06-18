@@ -3,7 +3,8 @@ import {
   DrawerClose,
   DrawerContent,
   DrawerFooter,
-  DrawerHeader
+  DrawerHeader,
+  DrawerTitle
 } from "@/components/ui/drawer";
 import { VscAzure } from "react-icons/vsc";
 import httpRequest from "@/lib/httpsRequest";
@@ -74,14 +75,12 @@ const RecommendationDetails = ({ open, setOpen, item, status }: RecommendationDe
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerContent className="sm:w-3xl h-screen ml-auto rounded-none">
         <DrawerHeader className="flex flex-row items-center justify-between border-b pb-4">
-          <div className="flex gap-2">
-            <div className="space-y-1">
-                <div className="bg-teal-600 p-4 rounded-sm">
-                  <Boxes className="w-8 h-8 text-white" />
-                </div>
-                <span className="text-xs text-gray-600 px-2 p-0.5 bg-gray-100 rounded-md font-semibold">CIS Cloud</span>
-            </div>
-            <div className="text-left space-y-1 mt-1.5">
+          <DrawerTitle className="">
+            <div className="flex gap-2">
+              <div className="bg-teal-600 p-4 rounded-sm">
+                <Boxes className="w-8 h-8 text-white" />
+              </div>
+              <div className="text-left space-y-1 mt-1.5">
                 <h2 className="text-xl font-semibold">{item?.title}</h2>
                 <div className="flex gap-2 items-center">
                     <h4 className="text-sm font-semibold">Value score</h4>
@@ -96,8 +95,19 @@ const RecommendationDetails = ({ open, setOpen, item, status }: RecommendationDe
                         <p className="text-sm text-gray-500">Azure Environment</p>
                     </div>
                 </div>
+              </div>
             </div>
-          </div>
+            <div className="flex items-center gap-2 mt-2">
+              {
+                item?.frameworks?.length > 0 && 
+                item?.frameworks?.map((framework, index) => (
+                  <span key={index} className="text-xs text-gray-600 px-2 p-0.5 bg-gray-100 rounded-md font-semibold">
+                    {framework.name}
+                  </span>
+                ))
+              }
+            </div>
+          </DrawerTitle>
           <DrawerClose>
             <X className="w-5 h-5 text-gray-600 cursor-pointer"/>
           </DrawerClose>
@@ -117,7 +127,7 @@ const RecommendationDetails = ({ open, setOpen, item, status }: RecommendationDe
                 <div className="space-y-2">
                     <div className="flex items-center gap-2">
                       <Box className="size-5 text-gray-700"/>
-                      <p className="font-semibold text-gray-800">Reasons</p>
+                      <p className="font-semibold text-gray-800">Implementation Reasons</p>
                     </div>
                     <div className="space-y-1">
                       {item?.reasons && item?.reasons?.length > 0 ? (

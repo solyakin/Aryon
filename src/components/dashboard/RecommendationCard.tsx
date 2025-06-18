@@ -5,55 +5,59 @@ import { FaGoogleDrive } from "react-icons/fa";
 import RecommendationDetails from "./RecommendationDetails";
 import { useState } from "react";
 import type { RecommendationDataProps } from "@/types/global";
-// import type { RecommendationDataProps } from "@/types/global.d";
+import { cn } from "@/lib/utils";
 
 interface RecommendationCardProps {
-    status: string;
+    status: "active" | "archived";
     item: RecommendationDataProps;
 }
 
 const RecommendationCard = ({ item, status }: RecommendationCardProps) => {
 
+    console.log("RecommendationCard item", item);
     const [open, setOpen] = useState(false);
 
-    const getFrameworkIcon = (frameworkName: string) => {
-        switch (frameworkName.toLowerCase()) {
-            case 'cis azure':
-            case 'azure security benchmark':
-                return <VscAzure className="w-5 h-5 text-gray-600" />;
-            case 'cis aws foundations':
-            case 'gdpr':
-                return <FaAws className="w-5 h-5 text-gray-600" />;
-            case 'hipaa':
-                return <FaGoogleDrive className="w-5 h-5 text-gray-600" />;
-            default:
-                return null;
-        }
-    };
+    // const getFrameworkIcon = (frameworkName: string) => {
+    //     switch (frameworkName.toLowerCase()) {
+    //         case 'cis azure':
+    //         case 'azure security benchmark':
+    //             return <VscAzure className="w-5 h-5 text-gray-600" />;
+    //         case 'cis aws foundations':
+    //         case 'gdpr':
+    //             return <FaAws className="w-5 h-5 text-gray-600" />;
+    //         case 'hipaa':
+    //             return <FaGoogleDrive className="w-5 h-5 text-gray-600" />;
+    //         default:
+    //             return null;
+    //     }
+    // };
 
   return (
     <div className="flex bg-white rounded-md">
-        <div className="bg-teal-500 rounded-tl-md rounded-bl-md flex flex-col justify-center align-center p-4 w-38">
+        <div onClick={() => setOpen(true)} className={cn(status === "archived" ? "bg-gray-300" : "bg-teal-500", " rounded-tl-md rounded-bl-md flex flex-col justify-center align-center p-4 w-38 cursor-pointer")}>
             <Box className="size-6 text-white mb-2 mx-auto" />
         </div>
-        <div className="flex-1 p-4 cursor-pointer" onClick={() => setOpen(true)}>
+        <div className="flex-1 p-4">
             <div className="flex items-center justify-between mb-3">
                 <h3 className="text-lg font-semibold">{item?.title}</h3>
                 <div className="flex items-center gap-4">
-                    {
+                    {/* {
                         item?.frameworks?.map((framework, index) => (
                             <div key={index}>
                                 {getFrameworkIcon(framework.name)}
                             </div>
                         ))
-                    }
+                    } */}
+                    <VscAzure className="w-5 h-5 text-gray-600" />
+                    <FaAws className="w-5 h-5 text-gray-600" />
+                    <FaGoogleDrive className="w-5 h-5 text-gray-600" />
                 </div>
             </div>
             <p className="text-sm text-gray-600">{item?.description}</p>
             {item?.reasons && item?.reasons?.length > 0 && (
                 <div className="mt-2 flex items-center gap-2">
-                    {item?.reasons?.map((reason, index) => (
-                        <p key={index} className="text-xs text-gray-600 px-2 p-0.5 bg-gray-100 rounded-md font-semibold">{reason}</p>
+                    {item?.frameworks?.map((framework, index) => (
+                        <p key={index} className="text-xs text-gray-600 px-2 p-0.5 bg-gray-100 rounded-md font-semibold">{framework.name}</p>
                     ))}
                 </div>
             )}

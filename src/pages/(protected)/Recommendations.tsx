@@ -1,4 +1,4 @@
-import { Box } from "lucide-react"
+import { Box, Inbox } from "lucide-react"
 import { AppSidebar } from "@/components/app-sidebar"
 import {
   SidebarInset,
@@ -101,6 +101,13 @@ function RecommendationsContent() {
             </div>
           ) : status === 'error' ? (
             <div>Error fetching recommendations</div>
+          ) :  data?.pages[0]?.data?.length === 0 ? (
+            <div className="h-[calc(100vh-200px)] flex items-center justify-center">
+              <div className="bg-gray-200 p-20 rounded-md flex flex-col gap-5 items-center justify-center">
+                <Inbox className="size-14 text-gray-600" />
+                <p className="text-lg font-semibold">No Recommendations Found</p>
+              </div>
+            </div>
           ) : (
             <div className='space-y-4'>
               {data?.pages.map((page, i) => (
