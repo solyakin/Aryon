@@ -1,4 +1,4 @@
-import { Box } from "lucide-react"
+import { Box, Inbox } from "lucide-react"
 import { AppSidebar } from "@/components/app-sidebar"
 import {
   SidebarInset,
@@ -16,6 +16,7 @@ const DashboardTitle = React.lazy(() => import('@/components/dashboard/Dashboard
 const RecommendationCard = React.lazy(() => import('@/components/dashboard/RecommendationCard'));
 
 const pageLimit = 10;
+
 function ArchivedRecommendations() {
 
   const { token } = useUserAuthContext();
@@ -28,12 +29,15 @@ function ArchivedRecommendations() {
   });
 
   const fetchingArchivedRecommendation = useCallback(async ({ pageParam = null }: { pageParam?: string | null }) => {
+    if(!token) {
+      throw new Error("No authentication token found");
+    }
     const response = await httpRequest({ token: token }).get(
-      `/recommendations/archive?${pageParam ? `cursor=${pageParam}&` : ''}limit=${pageLimit}&search=${debouncedSearchQuery}&tags=`
+      `/recommendations/archive?${pageParam ? `cursor=${pageParam}&` : ''}limit=${pageLimit}&search=${debouncedSearchQuery}&tags=${selectedTags.join(',')}`
     );
     console.log(response);
     return response.data;
-  }, [debouncedSearchQuery, token]);
+  }, [token, debouncedSearchQuery, selectedTags]);
 
   const {
     data,
@@ -42,7 +46,7 @@ function ArchivedRecommendations() {
     isFetchingNextPage,
     status
   } = useInfiniteQuery({
-    queryKey: ['archived-recommendations', debouncedSearchQuery],
+    queryKey: ['archived-recommendations', debouncedSearchQuery, selectedTags, token],
     queryFn: fetchingArchivedRecommendation,
     getNextPageParam: (lastPage) => {
       return lastPage.pagination?.cursor?.next || undefined;
@@ -55,8 +59,6 @@ function ArchivedRecommendations() {
       fetchNextPage();
     }
   }, [inView, hasNextPage, fetchNextPage]);
-
-  console.log("Data:", data);
 
   return (
     <div className="h-screen">
@@ -93,13 +95,20 @@ function ArchivedRecommendations() {
                     </div>
                   ) : status === 'error' ? (
                     <div>Error fetching recommendations</div>
+                  ) : data?.pages[0]?.data?.length === 0 ? (
+                    <div className="h-[calc(100vh-200px)] flex items-center justify-center">
+                      <div className="bg-gray-200 p-20 rounded-md flex flex-col gap-5 items-center justify-center">
+                        <Inbox className="size-14 text-gray-600" />
+                        <p className="text-lg font-semibold">No Archived Recommendations</p>
+                      </div>
+                    </div>
                   ) : (
                     <div className='space-y-4'>
                       {data?.pages.map((page, i) => (
                         <React.Fragment key={i}>
                           {page.data.map((item: any, index: number) => (
-                            <RecommendationCard 
-                              item={item} 
+                            <RecommendationCard
+                              item={item}
                               status="archived"
                               key={`${page.pagination.cursor?.next || 'initial'}-${index}`}
                             />

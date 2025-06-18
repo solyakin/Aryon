@@ -23,25 +23,29 @@ export function UserAuthContextProvider({ children }: IAuthProvider) {
 
     useEffect(() => {
         // Execute on initial load
-        checkCookieForAuthToken();
+        checkAuthToken();
     }, []);
 
-    const checkCookieForAuthToken = async () => {
-        const token = await getCookie(userAuthCookieName);
-
-        if (token) {
-            let parseStorageUser = null;
+    const checkAuthToken = async () => {
+        // Check localStorage first
+        const storedToken = localStorage.getItem('authToken');
+        
+        if (storedToken) {
             dispatch({
                 type: UserAuthAction.SET_TOKEN as keyof typeof UserAuthAction,
-                payload: token,
-            });
-
-            dispatch({
-                type: UserAuthAction.SET_USER as keyof typeof UserAuthAction,
-                payload: parseStorageUser,
+                payload: storedToken,
             });
         } else {
-            // localStorage.removeItem(userAuthCookieName);
+            // Fallback to cookie if no localStorage token
+            const cookieToken = await getCookie(userAuthCookieName);
+            if (cookieToken) {
+                // Save to localStorage for persistence
+                localStorage.setItem('authToken', cookieToken.toString());
+                dispatch({
+                    type: UserAuthAction.SET_TOKEN as keyof typeof UserAuthAction,
+                    payload: cookieToken,
+                });
+            }
         }
 
         dispatch({

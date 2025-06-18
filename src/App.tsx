@@ -1,6 +1,7 @@
 import './App.css'
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
+import ProtectedRoute from './components/ProtectedRoute'
 
 const Login = React.lazy(() => import('./pages/Auth/Login'))
 const Register = React.lazy(() => import('./pages/Auth/Register'))
@@ -14,9 +15,45 @@ function App() {
     <Routes>
         <Route path='/' element={<Login />} />
         <Route path='/register' element={<Register />} />
-        <Route path='/dashboard' element={<Dashboard />} />
+        <Route
+          element={
+          <ProtectedRoute />
+          }
+        >
+          <Route
+            path="dashboard"
+            element={
+              <Dashboard />
+            }
+          />
+        </Route>
+        <Route
+          element={
+          <ProtectedRoute />
+          }
+        >
+          <Route
+            path="recommendations"
+            element={
+              <Recommendations />
+            }
+          />
+        </Route>
+        <Route
+          element={
+          <ProtectedRoute />
+          }
+        >
+          <Route
+            path="recommendations/archive"
+            element={
+              <ArchivedRecommendations />
+            }
+          />
+        </Route>
+        {/* <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/recommendations' element={<Recommendations />} />
-        <Route path='/recommendations/archive' element={<ArchivedRecommendations />} />
+        <Route path='/recommendations/archive' element={<ArchivedRecommendations />} /> */}
     </Routes>
   </div>
   )

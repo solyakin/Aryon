@@ -10,7 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useUserAuthContext } from "@/context/user/user-hooks";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import httpRequest  from "@/lib/httpsRequest";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -30,8 +30,8 @@ type FormData = z.infer<typeof formSchema>;
 
 const LoginForm = () => {   
 
-    const { user } = useUserAuthContext();
-    console.log("user", user);
+    const navigate = useNavigate();
+    const { dispatch } = useUserAuthContext();
 
     const {
         register,
@@ -47,8 +47,8 @@ const LoginForm = () => {
                 `/login`,
                 data
             );
-
-            console.log('Login response:', response.data);
+            dispatch({ type: "SET_TOKEN", payload: response?.data?.token });
+            navigate("/recommendations");
         } catch (error) {
             console.error('Login error:', error);
         }

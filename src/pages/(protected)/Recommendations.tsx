@@ -19,6 +19,7 @@ const DashboardTitle = React.lazy(() => import('@/components/dashboard/Dashboard
 const RecommendationCard = React.lazy(() => import('@/components/dashboard/RecommendationCard'));
 
 const PAGE_SIZE = 10;
+
 function RecommendationsContent() {
   const { token } = useUserAuthContext();
   const { dispatch } = useRecommendationsContext();
@@ -31,11 +32,14 @@ function RecommendationsContent() {
   });
 
   const fetchRecommendations = useCallback(async ({ pageParam = null }: { pageParam?: string | null }) => {
+    if(!token) {
+      throw new Error("No authentication token found");
+    }
     const response = await httpRequest({ token: token }).get(
       `/recommendations?${pageParam ? `cursor=${pageParam}&` : ''}limit=${PAGE_SIZE}&search=${debouncedSearchQuery}&tags=${selectedTags.join(',')}`
     );
     return response.data;
-  }, [debouncedSearchQuery, token, selectedTags]);
+  }, [token, debouncedSearchQuery, selectedTags]);
 
   const {
     data,
@@ -44,7 +48,7 @@ function RecommendationsContent() {
     isFetchingNextPage,
     status
   } = useInfiniteQuery({
-    queryKey: ['recommendations', debouncedSearchQuery, selectedTags],
+    queryKey: ['recommendations', debouncedSearchQuery, selectedTags, token],
     queryFn: fetchRecommendations,
     getNextPageParam: (lastPage) => {
       return lastPage.pagination?.cursor?.next || undefined;
@@ -67,9 +71,6 @@ function RecommendationsContent() {
     }
   }, [data?.pages, dispatch]);
 
-  // console.log("Data:", data);
-  console.log("Available Filters:", selectedTags);
-
   return (
     <div className="flex-1 py-4 px-8 bg-gray-100">
       <div className="sticky top-0 z-50 bg-gray-100 pb-5">
@@ -87,7 +88,6 @@ function RecommendationsContent() {
             totalCount={data?.pages[0]?.pagination?.totalItems || 0}
             setSelectedTags={setSelectedTags}
             selectedTags={selectedTags}
-            // availableTags={availableTags}
           />
         </div>
       </div>

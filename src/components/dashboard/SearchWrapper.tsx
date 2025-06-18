@@ -10,6 +10,7 @@ import { useRecommendationsContext } from "@/context/recommendations/recommendat
 import type { Dispatch, SetStateAction } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { SelectedFilters } from "@/context/recommendations/types";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface SearchWrapperProps {
   count: number;
@@ -30,30 +31,37 @@ const FILTER_CATEGORIES = {
 type FilterCategory = keyof typeof FILTER_CATEGORIES;
 
 const SearchWrapper = ({ count, totalCount, searchQuery, setSearchQuery, selectedTags, setSelectedTags }: SearchWrapperProps) => {
-  const { availableTags, selectedFilters, dispatch } = useRecommendationsContext();
-  const [filterSearch, setFilterSearch] = useState("");
+    const queryClient = useQueryClient();
+    const [filterSearch, setFilterSearch] = useState("");
+    const { availableTags, selectedFilters, dispatch } = useRecommendationsContext();
 
-  const handleFilterChange = (category: FilterCategory, value: string) => {
-   
-    if (selectedTags.includes(value)) {
-      setSelectedTags(selectedTags.filter(tag => tag !== value));
-    } else {
-      setSelectedTags([...selectedTags, value]);
-    }
+    const handleFilterChange = (category: FilterCategory, value: string) => {
+    
+        if (selectedTags.includes(value)) {
+        setSelectedTags(selectedTags.filter(tag => tag !== value));
+        } else {
+        setSelectedTags([...selectedTags, value]);
+        }
 
-    dispatch({
-      type: "UPDATE_SELECTED_FILTERS",
-      payload: { [category]: selectedTags.includes(value) ? selectedTags.filter(tag => tag !== value) : [...selectedTags, value] }
-    });
-  };
+        dispatch({
+        type: "UPDATE_SELECTED_FILTERS",
+        payload: { [category]: selectedTags.includes(value) ? selectedTags.filter(tag => tag !== value) : [...selectedTags, value] }
+        });
+    };
 
-  const getSelectedFiltersCount = (filters: SelectedFilters): number => {
-    return Object.values(filters).reduce((acc, curr) => acc + (curr?.length || 0), 0);
-  };
+    const getSelectedFiltersCount = (filters: SelectedFilters): number => {
+        return Object.values(filters).reduce((acc, curr) => acc + (curr?.length || 0), 0);
+    };
 
-  const clearFilters = () => {
-    dispatch({ type: "CLEAR_FILTERS", payload: null });
-  };
+    const clearFilters = async() => {
+        setSelectedTags([]);
+        dispatch({ type: "CLEAR_FILTERS", payload: null });
+        // Refresh the data
+        await Promise.all([
+            queryClient.invalidateQueries({ queryKey: ['recommendations'] }),
+            queryClient.invalidateQueries({ queryKey: ['archived-recommendations'] })
+        ]);
+    };
 
   return (
     <div className="flex justify-between items-center mt-8">
