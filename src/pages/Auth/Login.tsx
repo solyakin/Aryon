@@ -29,6 +29,7 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 const LoginForm = () => {   
+
     const { user } = useUserAuthContext();
     console.log("user", user);
 
@@ -46,6 +47,7 @@ const LoginForm = () => {
                 `/login`,
                 data
             );
+
             console.log('Login response:', response.data);
         } catch (error) {
             console.error('Login error:', error);
