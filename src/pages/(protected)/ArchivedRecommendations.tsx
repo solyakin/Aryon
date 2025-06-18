@@ -1,4 +1,11 @@
-import { Box, Inbox } from "lucide-react"
+import { Archive, Box, ChevronRight, Inbox } from "lucide-react"
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import { AppSidebar } from "@/components/app-sidebar"
 import {
   SidebarInset,
@@ -12,7 +19,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useUserAuthContext } from "@/context/user/user-hooks"
 
 const SearchWrapper = React.lazy(() => import('@/components/dashboard/SearchWrapper'));
-const DashboardTitle = React.lazy(() => import('@/components/dashboard/DashboardTitle'));
+// const DashboardTitle = React.lazy(() => import('@/components/dashboard/DashboardTitle'));
 const RecommendationCard = React.lazy(() => import('@/components/dashboard/RecommendationCard'));
 
 const pageLimit = 10;
@@ -69,12 +76,26 @@ function ArchivedRecommendations() {
             <div className="flex-1 py-4 px-8 bg-gray-100">
               <div className="sticky top-0 z-50 bg-gray-100 pb-5">
                 <div className="">
-                  <DashboardTitle 
-                  title="Archived Recommendations"
-                  subtitle="View all archived recommendations"
-                  link="/recommendations"
-                  actionLabel="Active"
-                  />
+                  <div className="space-y-4">
+                    <Breadcrumb>
+                      <BreadcrumbList>
+                        <BreadcrumbItem>
+                          <BreadcrumbLink href="/recommendations">Recommendations</BreadcrumbLink>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator>
+                          <ChevronRight />
+                        </BreadcrumbSeparator>
+                        <BreadcrumbItem>
+                          <BreadcrumbLink className="text-gray-600 font-medium" href="/recommendations/archive">Archived</BreadcrumbLink>
+                        </BreadcrumbItem>
+                      </BreadcrumbList>
+                    </Breadcrumb>
+                    <div className="flex items-center gap-2">
+                      <p className="text-2xl font-semibold">Archived Recommendations</p>
+                      <Archive className="size-6 text-gray-600" />
+                    </div>
+                  </div>
+                  
                   <SearchWrapper 
                     searchQuery={searchQuery}
                     setSearchQuery={setSearchQuery}
@@ -105,15 +126,17 @@ function ArchivedRecommendations() {
                   ) : (
                     <div className='space-y-4'>
                       {data?.pages.map((page, i) => (
-                        <React.Fragment key={i}>
-                          {page.data.map((item: any, index: number) => (
-                            <RecommendationCard
-                              item={item}
-                              status="archived"
-                              key={`${page.pagination.cursor?.next || 'initial'}-${index}`}
-                            />
-                          ))}
-                        </React.Fragment>
+                        <React.Suspense fallback={<div>loading</div>} key={i}>
+                          <React.Fragment>
+                            {page.data.map((item: any, index: number) => (
+                              <RecommendationCard
+                                item={item}
+                                status="archived"
+                                key={`${page.pagination.cursor?.next || 'initial'}-${index}`}
+                              />
+                            ))}
+                          </React.Fragment>
+                        </React.Suspense>
                       ))}
                       <div
                         ref={ref}

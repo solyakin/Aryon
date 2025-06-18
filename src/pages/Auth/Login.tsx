@@ -15,6 +15,7 @@ import { useForm } from "react-hook-form";
 import httpRequest  from "@/lib/httpsRequest";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { UserAuthAction } from "@/context/user/user-reducer";
 
 const formSchema = z.object({
   username: z.string()
@@ -47,7 +48,10 @@ const LoginForm = () => {
                 `/login`,
                 data
             );
-            dispatch({ type: "SET_TOKEN", payload: response?.data?.token });
+            dispatch({
+                type: UserAuthAction.SET_TOKEN as keyof typeof UserAuthAction,
+                payload: response?.data?.token ,
+            });
             navigate("/recommendations");
         } catch (error) {
             console.error('Login error:', error);
