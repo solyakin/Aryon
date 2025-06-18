@@ -1,4 +1,4 @@
-import { Box, Inbox } from "lucide-react"
+import { Box, Inbox, Loader } from "lucide-react"
 import { AppSidebar } from "@/components/app-sidebar"
 import {
   SidebarInset,
@@ -13,6 +13,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { RecommendationsProvider } from "@/context/recommendations/recommendations-context";
 import { useRecommendationsContext } from "@/context/recommendations/recommendations-hooks";
 import { RecommendationsAction } from "@/context/recommendations/types";
+import { FaSpinner } from "react-icons/fa";
 
 const SearchWrapper = React.lazy(() => import('@/components/dashboard/SearchWrapper'));
 const DashboardTitle = React.lazy(() => import('@/components/dashboard/DashboardTitle'));
@@ -93,10 +94,10 @@ function RecommendationsContent() {
       </div>
       <div className="min-h-[100vh] overflow-scroll">
         <div className="space-y-3">
-          {status === 'pending' ? (
+          {status === "pending" ? (
             <div className="h-[calc(100vh-200px)] flex items-center justify-center">
               <div className="bg-teal-300 p-5 rounded-md flex items-center justify-center">
-                <Box className="animate-spin size-6"/>
+                <Loader className="animate-spin text-teal-50 size-6"/>
               </div>
             </div>
           ) : status === 'error' ? (
@@ -126,7 +127,9 @@ function RecommendationsContent() {
                 className="h-10 flex items-center justify-center"
               >
                 {isFetchingNextPage
-                  ? 'Loading more...'
+                  ? <div className="bg-teal-300 p-2 rounded-md flex items-center justify-center">
+                      <Loader className="animate-spin text-teal-50 size-6"/>
+                    </div>
                   : hasNextPage
                   ? 'Load more'
                   : 'Nothing more to load'}
