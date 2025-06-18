@@ -31,6 +31,7 @@ const FILTER_CATEGORIES = {
 type FilterCategory = keyof typeof FILTER_CATEGORIES;
 
 const SearchWrapper = ({ count, totalCount, searchQuery, setSearchQuery, selectedTags, setSelectedTags }: SearchWrapperProps) => {
+    
     const queryClient = useQueryClient();
     const [filterSearch, setFilterSearch] = useState("");
     const { availableTags, selectedFilters, dispatch } = useRecommendationsContext();

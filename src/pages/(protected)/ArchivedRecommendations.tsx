@@ -19,7 +19,6 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useUserAuthContext } from "@/context/user/user-hooks"
 
 const SearchWrapper = React.lazy(() => import('@/components/dashboard/SearchWrapper'));
-// const DashboardTitle = React.lazy(() => import('@/components/dashboard/DashboardTitle'));
 const RecommendationCard = React.lazy(() => import('@/components/dashboard/RecommendationCard'));
 
 const pageLimit = 10;
@@ -42,7 +41,6 @@ function ArchivedRecommendations() {
     const response = await httpRequest({ token: token }).get(
       `/recommendations/archive?${pageParam ? `cursor=${pageParam}&` : ''}limit=${pageLimit}&search=${debouncedSearchQuery}&tags=${selectedTags.join(',')}`
     );
-    console.log(response);
     return response.data;
   }, [token, debouncedSearchQuery, selectedTags]);
 

@@ -5,7 +5,6 @@ interface RequestOptions extends AxiosRequestConfig {
 
 const requestClient = (options: RequestOptions = {}) => {
 
-console.log("Request options:", options);
 const opts: RequestOptions = Object.assign({}, options, {
     headers: {
       "Content-Type": "application/json",

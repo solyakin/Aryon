@@ -6,7 +6,6 @@ import RecommendationDetails from "./RecommendationDetails";
 import { useState } from "react";
 import type { RecommendationDataProps } from "@/types/global";
 import { cn } from "@/lib/utils";
-
 interface RecommendationCardProps {
     status: "active" | "archived";
     item: RecommendationDataProps;
@@ -14,7 +13,6 @@ interface RecommendationCardProps {
 
 const RecommendationCard = ({ item, status }: RecommendationCardProps) => {
 
-    console.log("RecommendationCard item", item);
     const [open, setOpen] = useState(false);
 
     // const getFrameworkIcon = (frameworkName: string) => {
