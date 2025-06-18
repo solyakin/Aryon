@@ -1,4 +1,4 @@
-import { Box, Inbox, Loader } from "lucide-react"
+import { Inbox, Loader } from "lucide-react"
 import { AppSidebar } from "@/components/app-sidebar"
 import {
   SidebarInset,
@@ -13,7 +13,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { RecommendationsProvider } from "@/context/recommendations/recommendations-context";
 import { useRecommendationsContext } from "@/context/recommendations/recommendations-hooks";
 import { RecommendationsAction } from "@/context/recommendations/types";
-import { FaSpinner } from "react-icons/fa";
 
 const SearchWrapper = React.lazy(() => import('@/components/dashboard/SearchWrapper'));
 const DashboardTitle = React.lazy(() => import('@/components/dashboard/DashboardTitle'));
