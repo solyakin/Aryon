@@ -95,8 +95,8 @@ function RecommendationsContent() {
         <div className="space-y-3">
           {status === "pending" ? (
             <div className="h-[calc(100vh-200px)] flex items-center justify-center">
-              <div className="bg-teal-300 p-5 rounded-md flex items-center justify-center">
-                <Loader className="animate-spin text-teal-50 size-6"/>
+              <div className="flex items-center justify-center">
+                <Loader className="animate-spin text-teal-500 size-12"/>
               </div>
             </div>
           ) : status === 'error' ? (
@@ -126,8 +126,8 @@ function RecommendationsContent() {
                 className="h-10 flex items-center justify-center"
               >
                 {isFetchingNextPage
-                  ? <div className="bg-teal-300 p-2 rounded-md flex items-center justify-center">
-                      <Loader className="animate-spin text-teal-50 size-6"/>
+                  ? <div className="flex items-center justify-center">
+                      <Loader className="animate-spin text-teal-500 size-12"/>
                     </div>
                   : hasNextPage
                   ? 'Load more'
