@@ -12,8 +12,8 @@ const DashboardTitle = ({ title, link, actionLabel }: DashboardTitleProps) => {
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-2">
-        <h1 className="text-2xl font-medium">{title}</h1>
-       <Sparkles className="size-6 text-teal-600" />
+        <h1 className="text-lg sm:text-2xl font-medium">{title}</h1>
+       <Sparkles className="size-4 sm:size-6 text-teal-600" />
       </div>
       <Link to={link} className="flex items-center gap-2">
         <Archive className="size-4" />

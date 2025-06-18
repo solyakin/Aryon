@@ -65,21 +65,21 @@ const SearchWrapper = ({ count, totalCount, searchQuery, setSearchQuery, selecte
     };
 
   return (
-    <div className="flex justify-between items-center mt-8">
-      <div className="flex items-center gap-2">
-        <div className="flex items-center gap-2 border border-gray-300 bg-white rounded-sm p-2">
-          <Search className="size-4" />
+    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 md:gap-2 mt-8">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 w-full md:w-auto">
+        <div className="flex items-center gap-2 border border-gray-300 bg-white rounded-sm p-2 w-full sm:w-auto">
+          <Search className="size-4 flex-shrink-0" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search... "
-            className="border-none outline-none focus:ring-0 bg-transparent w-[300px] text-gray-700"
+            className="border-none outline-none focus:ring-0 bg-transparent w-full sm:w-[300px] text-gray-700"
           />
         </div>
         <Popover>
-          <PopoverTrigger className="ml-2">
-            <div className="border border-gray-300 p-2.5 rounded-sm flex items-center gap-2 hover:bg-gray-200 transition-colors cursor-pointer">
+          <PopoverTrigger className="w-full sm:w-auto">
+            <div className="border border-gray-300 p-2.5 rounded-sm flex items-center justify-center sm:justify-start gap-2 hover:bg-gray-200 transition-colors cursor-pointer w-full sm:w-auto">
               <Filter className="size-3 text-gray-600" />
               <span className="text-sm">Filter</span>
               {getSelectedFiltersCount(selectedFilters) > 0 && (
@@ -89,7 +89,7 @@ const SearchWrapper = ({ count, totalCount, searchQuery, setSearchQuery, selecte
               )}
             </div>
           </PopoverTrigger>
-          <PopoverContent className="w-80 p-0">
+          <PopoverContent className="w-[calc(100vw-2rem)] sm:w-80 p-0">
             <div className="p-2 border-b border-gray-200">
               <div className="flex items-center gap-2">
                 <Search className="size-4" />
@@ -207,26 +207,10 @@ const SearchWrapper = ({ count, totalCount, searchQuery, setSearchQuery, selecte
           </PopoverContent>
         </Popover>
       </div>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 w-full md:w-auto md:justify-end md:text-right">
         <p className="text-gray-600 text-sm">
           Showing {count} of {totalCount} results
         </p>
-        {/* {(Object.entries(selectedFilters) as [FilterCategory, string[]][]).map(([category, values]) => 
-          values.map((value: string, index: number) => (
-            <span
-              key={`${category}-${index}`}
-              className="px-2 py-1 text-sm bg-blue-100 text-blue-800 rounded-full flex items-center gap-1"
-            >
-              {value}
-              <button
-                onClick={() => handleFilterChange(category, value)}
-                className="hover:bg-blue-200 rounded-full p-0.5"
-              >
-                ×
-              </button>
-            </span>
-          ))
-        )} */}
       </div>
     </div>
   )

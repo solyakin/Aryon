@@ -72,26 +72,28 @@ function RecommendationsContent() {
   }, [data?.pages, dispatch]);
 
   return (
-    <div className="flex-1 py-4 px-8 bg-gray-100">
-      <div className="sticky top-0 z-50 bg-gray-100 pb-5">
-        <div className="">
+    <div className="flex-1 py-4 px-4 md:px-8 bg-gray-100">
+      <div className="sticky top-0 z-30 bg-gray-100 pb-5">
+        <div className="space-y-4">
           <DashboardTitle 
           title="Recommendations"
           subtitle="View all recommendations"
           link="/recommendations/archive"
           actionLabel="Archived"
           />
-          <SearchWrapper 
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            count={data?.pages?.reduce((total, page) => total + page.data.length, 0) || 0}
-            totalCount={data?.pages[0]?.pagination?.totalItems || 0}
-            setSelectedTags={setSelectedTags}
-            selectedTags={selectedTags}
-          />
+          <div className="w-full overflow-x-auto">
+            <SearchWrapper 
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              count={data?.pages?.reduce((total, page) => total + page.data.length, 0) || 0}
+              totalCount={data?.pages[0]?.pagination?.totalItems || 0}
+              setSelectedTags={setSelectedTags}
+              selectedTags={selectedTags}
+            />
+          </div>
         </div>
       </div>
-      <div className="min-h-[100vh] overflow-scroll">
+      <div className="min-h-[100vh] overflow-y-auto">
         <div className="space-y-3">
           {status === "pending" ? (
             <div className="h-[calc(100vh-200px)] flex items-center justify-center">
@@ -145,8 +147,13 @@ function Recommendations() {
   return (
     <div className="h-screen">
       <SidebarProvider className="flex flex-col">
-        <div className="flex flex-1">
-          <AppSidebar />
+        <div className="flex flex-col lg:flex-row flex-1">
+          <div className="sticky top-0 z-50 bg-gray-100 lg:hidden p-4">
+            <AppSidebar />
+          </div>
+          <div className="hidden lg:block">
+            <AppSidebar />
+          </div>
           <SidebarInset>
             <RecommendationsProvider>
               <RecommendationsContent />

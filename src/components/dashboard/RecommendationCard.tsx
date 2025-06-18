@@ -31,12 +31,13 @@ const RecommendationCard = ({ item, status }: RecommendationCardProps) => {
     // };
 
   return (
-    <div className="flex bg-white rounded-md">
-        <div onClick={() => setOpen(true)} className={cn(status === "archived" ? "bg-gray-300" : "bg-teal-500", " rounded-tl-md rounded-bl-md flex flex-col justify-center align-center p-4 w-38 cursor-pointer")}>
-            <Box className="size-6 text-white mb-2 mx-auto" />
+    <div className="flex flex-col sm:flex-row bg-white rounded-md">
+        <div onClick={() => setOpen(true)} 
+        className={cn(status === "archived" ? "bg-gray-300" : "bg-teal-500", "rounded-t-md sm:rounded-t-none sm:rounded-l-md flex flex-row sm:flex-col justify-center items-center p-4 cursor-pointer w-full md:w-[170px]")}>
+            <Box className="size-10 text-white sm:mb-2 sm:mx-auto" />
         </div>
         <div className="flex-1 p-4">
-            <div className="flex items-center justify-between mb-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-0 mb-3">
                 <h3 className="text-lg font-semibold">{item?.title}</h3>
                 <div className="flex items-center gap-4">
                     {/* {
@@ -51,16 +52,16 @@ const RecommendationCard = ({ item, status }: RecommendationCardProps) => {
                     <FaGoogleDrive className="w-5 h-5 text-gray-600" />
                 </div>
             </div>
-            <p className="text-gray-600 mb-3">{item?.description}</p>
+            <p className="text-gray-600 mb-3 line-clamp-2 sm:line-clamp-none">{item?.description}</p>
             {item?.reasons && item?.reasons?.length > 0 && (
-                <div className="mt-2 flex items-center gap-2">
+                <div className="mt-2 flex flex-wrap items-center gap-2">
                     {item?.frameworks?.map((framework, index) => (
                         <p key={index} className="text-xs text-gray-600 px-2 p-0.5 bg-gray-100 rounded-md font-semibold">{framework.name}</p>
                     ))}
                 </div>
             )}
         </div>
-        <div className="bg-gray-100 p-4 rounded-md m-2">
+        <div className="bg-gray-100 p-4 rounded-md mx-2 mb-2 sm:my-2 w-full sm:w-auto">
             <div className="text-center border-b border-gray-200 pb-3 mb-2 space-y-1">
                 <h4 className="text-sm font-semibold">Impact assessment</h4>
                 <p className="text-sm text-gray-600">~ {item?.impactAssessment?.totalViolations}/ month</p>

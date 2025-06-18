@@ -68,43 +68,48 @@ function ArchivedRecommendations() {
   return (
     <div className="h-screen">
       <SidebarProvider className="flex flex-col">
-        <div className="flex flex-1">
-          <AppSidebar />
+        <div className="flex flex-col lg:flex-row flex-1">
+          <div className="sticky top-0 z-50 bg-gray-100 lg:hidden p-4">
+            <AppSidebar />
+          </div>
+          <div className="hidden lg:block">
+            <AppSidebar />
+          </div>
           <SidebarInset>
             <div className="flex-1 py-4 px-8 bg-gray-100">
-              <div className="sticky top-0 z-50 bg-gray-100 pb-5">
-                <div className="">
-                  <div className="space-y-4">
-                    <Breadcrumb>
-                      <BreadcrumbList>
-                        <BreadcrumbItem>
-                          <BreadcrumbLink href="/recommendations">Recommendations</BreadcrumbLink>
-                        </BreadcrumbItem>
-                        <BreadcrumbSeparator>
-                          <ChevronRight />
-                        </BreadcrumbSeparator>
-                        <BreadcrumbItem>
-                          <BreadcrumbLink className="text-gray-600 font-medium" href="/recommendations/archive">Archived</BreadcrumbLink>
-                        </BreadcrumbItem>
-                      </BreadcrumbList>
-                    </Breadcrumb>
-                    <div className="flex items-center gap-2">
-                      <p className="text-2xl font-semibold">Archived Recommendations</p>
-                      <Archive className="size-6 text-gray-600" />
-                    </div>
+              <div className="sticky top-0 z-30 bg-gray-100 pb-5">
+                <div className="space-y-4">
+                  <Breadcrumb>
+                    <BreadcrumbList>
+                      <BreadcrumbItem>
+                        <BreadcrumbLink href="/recommendations">Recommendations</BreadcrumbLink>
+                      </BreadcrumbItem>
+                      <BreadcrumbSeparator>
+                        <ChevronRight />
+                      </BreadcrumbSeparator>
+                      <BreadcrumbItem>
+                        <BreadcrumbLink className="text-gray-600 font-medium" href="/recommendations/archive">Archived</BreadcrumbLink>
+                      </BreadcrumbItem>
+                    </BreadcrumbList>
+                  </Breadcrumb>
+                  <div className="flex items-center gap-2">
+                    <p className="text-lg sm:text-2xl font-semibold">Archived Recommendations</p>
+                    <Archive className="text-4 sm:size-6 text-gray-600" />
                   </div>
                   
-                  <SearchWrapper 
-                    searchQuery={searchQuery}
-                    setSearchQuery={setSearchQuery}
-                    count={data?.pages?.reduce((total, page) => total + page.data.length, 0) || 0}
-                    totalCount={data?.pages[0]?.pagination?.totalItems || 0}
-                    selectedTags={selectedTags}
-                    setSelectedTags={setSelectedTags}
-                  />
+                  <div className="w-full overflow-x-auto">
+                    <SearchWrapper 
+                      searchQuery={searchQuery}
+                      setSearchQuery={setSearchQuery}
+                      count={data?.pages?.reduce((total, page) => total + page.data.length, 0) || 0}
+                      totalCount={data?.pages[0]?.pagination?.totalItems || 0}
+                      selectedTags={selectedTags}
+                      setSelectedTags={setSelectedTags}
+                    />
+                  </div>
                 </div>
               </div>
-              <div className="min-h-[100vh] overflow-scroll">
+              <div className="min-h-[100vh] overflow-y-auto">
                 <div className="space-y-3">
                   {status === 'pending' ? (
                     <div className="h-[calc(100vh-200px)] flex items-center justify-center">
