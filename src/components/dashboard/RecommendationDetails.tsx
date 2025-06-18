@@ -120,8 +120,8 @@ const RecommendationDetails = ({ open, setOpen, item, status }: RecommendationDe
                       <p className="font-semibold text-gray-800">Reasons</p>
                     </div>
                     <div className="space-y-1">
-                      {item?.reasons && item?.reasons.length > 0 ? (
-                        item.reasons.map((reason, index) => (
+                      {item?.reasons && item?.reasons?.length > 0 ? (
+                        item?.reasons?.map((reason, index) => (
                           <p key={index} className="text-xs text-gray-600 px-2 p-0.5 bg-gray-100 rounded-md font-semibold max-w-max">{reason}</p>
                         ))
                       ) : (
@@ -164,7 +164,7 @@ const RecommendationDetails = ({ open, setOpen, item, status }: RecommendationDe
                     </div>
                     {
                       item?.furtherReading?.length > 0 ? 
-                      item?.furtherReading.map((link, index) => (
+                      item?.furtherReading?.map((link, index) => (
                         <a 
                         key={index}
                         href={link?.href} 

@@ -47,7 +47,7 @@ describe('RecommendationCard', () => {
 
   it('renders all reasons', () => {
     render(<RecommendationCard status='active' item={mockItem} />);
-    mockItem.reasons.forEach(reason => {
+    mockItem?.reasons?.forEach(reason => {
       expect(screen.getByText(reason)).toBeInTheDocument();
     });
   });

@@ -5,6 +5,7 @@ import { FaGoogleDrive } from "react-icons/fa";
 import RecommendationDetails from "./RecommendationDetails";
 import { useState } from "react";
 import type { RecommendationDataProps } from "@/types/global";
+// import type { RecommendationDataProps } from "@/types/global.d";
 
 interface RecommendationCardProps {
     status: string;
@@ -49,9 +50,9 @@ const RecommendationCard = ({ item, status }: RecommendationCardProps) => {
                 </div>
             </div>
             <p className="text-sm text-gray-600">{item?.description}</p>
-            {item?.reasons && item?.reasons.length > 0 && (
+            {item?.reasons && item?.reasons?.length > 0 && (
                 <div className="mt-2 flex items-center gap-2">
-                    {item.reasons.map((reason, index) => (
+                    {item?.reasons?.map((reason, index) => (
                         <p key={index} className="text-xs text-gray-600 px-2 p-0.5 bg-gray-100 rounded-md font-semibold">{reason}</p>
                     ))}
                 </div>
