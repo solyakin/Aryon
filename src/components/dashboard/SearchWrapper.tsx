@@ -5,7 +5,9 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { useState } from "react";
-import { useRecommendationsContext } from "@/context/recommendations/recommendations-hooks";
+import { 
+  useRecommendationsContext 
+} from "@/context/recommendations/recommendations-hooks";
 import type { Dispatch, SetStateAction } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { SelectedFilters } from "@/context/recommendations/types";
@@ -32,39 +34,35 @@ export type FilterCategory = keyof typeof FILTER_CATEGORIES;
 
 const SearchWrapper = ({ count, totalCount, searchQuery, setSearchQuery, selectedTags, setSelectedTags }: SearchWrapperProps) => {
     
-    const queryClient = useQueryClient();
-    const [filterSearch, setFilterSearch] = useState("");
-    const { availableTags, selectedFilters, dispatch } = useRecommendationsContext();
-    console.log("Available Tags:", availableTags);
+  const queryClient = useQueryClient();
+  const [filterSearch, setFilterSearch] = useState("");
+  const { availableTags, selectedFilters, dispatch } = useRecommendationsContext();
 
-    const handleFilterChange = (category: FilterCategory, value: string) => {
-      if (selectedTags.includes(value)) {
-        setSelectedTags(selectedTags.filter(tag => tag !== value));
-      } else {
-        setSelectedTags([...selectedTags, value]);
-      }
-      dispatch({
-        type: "UPDATE_SELECTED_FILTERS",
-        payload: { [category]: selectedTags.includes(value) ? selectedTags.filter(tag => tag !== value) : [...selectedTags, value] }
-      });
-    };
+  const handleFilterChange = (category: FilterCategory, value: string) => {
+    if (selectedTags.includes(value)) {
+      setSelectedTags(selectedTags.filter(tag => tag !== value));
+    } else {
+      setSelectedTags([...selectedTags, value]);
+    }
+    dispatch({
+      type: "UPDATE_SELECTED_FILTERS",
+      payload: { [category]: selectedTags.includes(value) ? selectedTags.filter(tag => tag !== value) : [...selectedTags, value] }
+    });
+  };
 
-    const getSelectedFiltersCount = (filters: SelectedFilters): number => {
-      return Object.values(filters).reduce((acc, curr) => acc + (curr?.length || 0), 0);
-    };
+  const getSelectedFiltersCount = (filters: SelectedFilters): number => {
+    return Object.values(filters).reduce((acc, curr) => acc + (curr?.length || 0), 0);
+  };
 
-    const clearFilters = async() => {
-        setSelectedTags([]);
-        dispatch({ type: "CLEAR_FILTERS", payload: null });
-        // Refresh the data
-        await Promise.all([
-            queryClient.invalidateQueries({ queryKey: ['recommendations'] }),
-            queryClient.invalidateQueries({ queryKey: ['archived-recommendations'] })
-        ]);
-    };
-
-
-    // console.log("Available Tags:", availableTags);
+  const clearFilters = async() => {
+    setSelectedTags([]);
+    dispatch({ type: "CLEAR_FILTERS", payload: null });
+    // Refresh the data
+    await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ['recommendations'] }),
+        queryClient.invalidateQueries({ queryKey: ['archived-recommendations'] })
+    ]);
+  };
 
   return (
     <section 
@@ -92,6 +90,7 @@ const SearchWrapper = ({ count, totalCount, searchQuery, setSearchQuery, selecte
               role="button"
               aria-haspopup="dialog"
               aria-expanded="false"
+              aria-label="Filter"
               tabIndex={0}
               className="border border-gray-300 p-2.5 rounded-sm flex items-center justify-center sm:justify-start gap-2 hover:bg-gray-200 transition-colors cursor-pointer w-full sm:w-auto"
             >

@@ -2,7 +2,7 @@ import type { SelectedFilters } from "@/context/recommendations/types";
 import { Checkbox } from "../ui/checkbox";
 import type { FilterCategory } from "./SearchWrapper";
 
-interface FilterItemProps {
+export interface FilterItemProps {
     title: string;
     category: FilterCategory;
     availableTags: string[];

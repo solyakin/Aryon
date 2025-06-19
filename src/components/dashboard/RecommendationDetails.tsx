@@ -20,10 +20,10 @@ import {
   TriangleAlert, 
   X 
 } from "lucide-react";
+import { FaAws } from "react-icons/fa";
 import { toast } from "react-hot-toast";
 import { useUserAuthContext } from "@/context/user/user-hooks";
 import { useQueryClient } from "@tanstack/react-query";
-import { FaAws } from "react-icons/fa";
 import { handleErrorMessage } from "@/lib/errorhandler";
 
 interface RecommendationDetailsProps {

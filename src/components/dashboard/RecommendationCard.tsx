@@ -13,7 +13,6 @@ interface RecommendationCardProps {
 
 const RecommendationCard = ({ item, status }: RecommendationCardProps) => {
     const [open, setOpen] = useState(false);
-
     return (
         <article className="flex flex-col sm:flex-row bg-white rounded-md">
             <button 
@@ -67,10 +66,10 @@ const RecommendationCard = ({ item, status }: RecommendationCardProps) => {
                         aria-valuemin={0}
                         aria-valuemax={100}
                     >
-                        <div className={`w-2.5 h-2.5 ${item?.score >= 25 ? 'bg-teal-600' : 'bg-gray-300'} rounded-[1.5px]`} aria-hidden="true"></div>
-                        <div className={`w-2.5 h-2.5 ${item?.score >= 50 ? 'bg-teal-600' : 'bg-gray-300'} rounded-[1.5px]`} aria-hidden="true"></div>
-                        <div className={`w-2.5 h-2.5 ${item?.score >= 75 ? 'bg-teal-600' : 'bg-gray-300'} rounded-[1.5px]`} aria-hidden="true"></div>
-                        <div className={`w-2.5 h-2.5 ${item?.score >= 100 ? 'bg-teal-600' : 'bg-gray-300'} rounded-[1.5px]`} aria-hidden="true"></div>
+                        <div data-testid="score-indicator" className={`w-2.5 h-2.5 ${item?.score >= 25 ? 'bg-teal-600' : 'bg-gray-300'} rounded-[1.5px]`} aria-hidden="true"></div>
+                        <div data-testid="score-indicator" className={`w-2.5 h-2.5 ${item?.score >= 50 ? 'bg-teal-600' : 'bg-gray-300'} rounded-[1.5px]`} aria-hidden="true"></div>
+                        <div data-testid="score-indicator" className={`w-2.5 h-2.5 ${item?.score >= 75 ? 'bg-teal-600' : 'bg-gray-300'} rounded-[1.5px]`} aria-hidden="true"></div>
+                        <div data-testid="score-indicator" className={`w-2.5 h-2.5 ${item?.score >= 100 ? 'bg-teal-600' : 'bg-gray-300'} rounded-[1.5px]`} aria-hidden="true"></div>
                         <span className="sr-only">Score: {item?.score} out of 100</span>
                     </div>
                 </div>
