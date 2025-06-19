@@ -67,26 +67,39 @@ const SearchWrapper = ({ count, totalCount, searchQuery, setSearchQuery, selecte
     // console.log("Available Tags:", availableTags);
 
   return (
-    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 md:gap-2 mt-5 mb-5">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 w-full md:w-auto">
+    <section 
+      aria-label="Search and filter recommendations" 
+      className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 md:gap-2 mt-5 mb-5"
+    >
+      <div role="search" className="flex flex-col sm:flex-row items-start sm:items-center gap-2 w-full md:w-auto">
         <div className="flex items-center gap-2 border border-gray-300 bg-white rounded-sm p-2 w-full sm:w-auto">
-          <Search className="size-4 flex-shrink-0" />
+          <Search className="size-4 flex-shrink-0" aria-hidden="true" />
+          <label htmlFor="search-input" className="sr-only">Search recommendations</label>
           <input
-            type="text"
+            id="search-input"
+            type="search"
+            role="searchbox"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search... "
+            placeholder="Search recommendations..."
             className="border-none outline-none focus:ring-0 bg-transparent w-full sm:w-[300px] text-gray-700"
+            aria-label="Search recommendations"
           />
         </div>
         <Popover>
           <PopoverTrigger className="w-full sm:w-auto">
-            <div className="border border-gray-300 p-2.5 rounded-sm flex items-center justify-center sm:justify-start gap-2 hover:bg-gray-200 transition-colors cursor-pointer w-full sm:w-auto">
-              <Filter className="size-3 text-gray-600" />
+            <div 
+              role="button"
+              aria-haspopup="dialog"
+              aria-expanded="false"
+              tabIndex={0}
+              className="border border-gray-300 p-2.5 rounded-sm flex items-center justify-center sm:justify-start gap-2 hover:bg-gray-200 transition-colors cursor-pointer w-full sm:w-auto"
+            >
+              <Filter className="size-3 text-gray-600" aria-hidden="true" />
               <span className="text-sm">Filter</span>
               {getSelectedFiltersCount(selectedFilters) > 0 && (
-                <span className="bg-blue-600 text-white text-xs rounded-full px-2 py-0.5">
-                  {getSelectedFiltersCount(selectedFilters)}
+                <span className="bg-blue-600 text-white text-xs rounded-full px-2 py-0.5" role="status" aria-live="polite">
+                  {getSelectedFiltersCount(selectedFilters)} filters active
                 </span>
               )}
             </div>
@@ -94,50 +107,56 @@ const SearchWrapper = ({ count, totalCount, searchQuery, setSearchQuery, selecte
           <PopoverContent className="w-[calc(100vw-2rem)] sm:w-80 p-0">
             <div className="p-2 border-b border-gray-200">
               <div className="flex items-center gap-2">
-                <Search className="size-4" />
+                <Search className="size-4" aria-hidden="true" />
+                <label htmlFor="filter-search" className="sr-only">Search filters</label>
                 <input
-                  type="text"
+                  id="filter-search"
+                  type="search"
                   placeholder="Search filters..."
                   value={filterSearch}
                   onChange={(e) => setFilterSearch(e.target.value)}
                   className="border-none outline-none text-sm focus:ring-0 bg-transparent w-full text-gray-700"
+                  aria-label="Search filters"
                 />
               </div>
             </div>
             <ScrollArea className="h-[300px]">
-              <FilterItem 
-              title="Cloud Providers"
-              category="providers"
-              availableTags={availableTags?.providers || []}
-              selectedFilters={selectedFilters}
-              handleFilterChange={handleFilterChange}
-              />
-              <FilterItem 
-              title="Frameworks"
-              category="frameworks"
-              availableTags={availableTags?.frameworks || []}
-              selectedFilters={selectedFilters}
-              handleFilterChange={handleFilterChange}
-              />
-              <FilterItem 
-              title="Reasons"
-              category="reasons"
-              availableTags={availableTags?.reasons || []}
-              selectedFilters={selectedFilters}
-              handleFilterChange={handleFilterChange}
-              />
-              <FilterItem 
-              title="Classes"
-              category="classes"
-              availableTags={availableTags?.classes || []}
-              selectedFilters={selectedFilters}
-              handleFilterChange={handleFilterChange}
-              />
+              <nav aria-label="Filter categories">
+                <FilterItem 
+                  title="Cloud Providers"
+                  category="providers"
+                  availableTags={availableTags?.providers || []}
+                  selectedFilters={selectedFilters}
+                  handleFilterChange={handleFilterChange}
+                />
+                <FilterItem 
+                  title="Frameworks"
+                  category="frameworks"
+                  availableTags={availableTags?.frameworks || []}
+                  selectedFilters={selectedFilters}
+                  handleFilterChange={handleFilterChange}
+                />
+                <FilterItem 
+                  title="Reasons"
+                  category="reasons"
+                  availableTags={availableTags?.reasons || []}
+                  selectedFilters={selectedFilters}
+                  handleFilterChange={handleFilterChange}
+                />
+                <FilterItem 
+                  title="Classes"
+                  category="classes"
+                  availableTags={availableTags?.classes || []}
+                  selectedFilters={selectedFilters}
+                  handleFilterChange={handleFilterChange}
+                />
+              </nav>
             </ScrollArea>
             <div className="border-t border-gray-200">
               <button
                 onClick={clearFilters}
                 className="w-full text-center text-sm font-medium px-2 py-2 text-gray-500 hover:bg-gray-100"
+                aria-label="Clear all filters"
               >
                 Clear Filters
               </button>
@@ -146,11 +165,11 @@ const SearchWrapper = ({ count, totalCount, searchQuery, setSearchQuery, selecte
         </Popover>
       </div>
       <div className="flex items-center gap-4 w-full md:w-auto md:justify-end md:text-right">
-        <p className="text-gray-600 text-sm">
+        <p className="text-gray-600 text-sm" role="status" aria-live="polite">
           Showing {count} of {totalCount} results
         </p>
       </div>
-    </div>
+    </section>
   )
 }
 

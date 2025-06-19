@@ -20,26 +20,41 @@ interface RecommendationTopProps {
 
 const RecommendationTop = ({ data, searchQuery, setSearchQuery, selectedTags, setSelectedTags }: RecommendationTopProps) => {
   return (
-    <div className="sticky top-0 z-30 bg-gray-100 pb-5">
+    <header className="sticky top-0 z-30 bg-gray-100 pb-5" role="banner">
       <div className="space-y-4">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/recommendations">Recommendations</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator>
-              <ChevronRight />
-            </BreadcrumbSeparator>
-            <BreadcrumbItem>
-              <BreadcrumbLink className="text-gray-600 font-medium" href="/recommendations/archive">Archived</BreadcrumbLink>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-        <div className="flex items-center gap-2">
-          <p className="text-lg sm:text-2xl font-semibold">Archived Recommendations</p>
-          <Archive className="text-4 sm:size-6 text-gray-600" />
+        <nav aria-label="Breadcrumb navigation">
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/recommendations" aria-label="Go to recommendations">
+                  Recommendations
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator>
+                <ChevronRight aria-hidden="true" />
+              </BreadcrumbSeparator>
+              <BreadcrumbItem>
+                <BreadcrumbLink 
+                  className="text-gray-600 font-medium" 
+                  href="/recommendations/archive"
+                  aria-current="page"
+                  aria-label="Current page: Archived recommendations"
+                >
+                  Archived
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </nav>
+        <div className="flex items-center gap-2" role="heading" aria-level={1}>
+          <h1 className="text-lg sm:text-2xl font-semibold">Archived Recommendations</h1>
+          <Archive className="text-4 sm:size-6 text-gray-600" aria-hidden="true" />
         </div> 
-        <div className="w-full overflow-x-auto">
+        <div 
+          className="w-full overflow-x-auto"
+          role="search"
+          aria-label="Search and filter archived recommendations"
+        >
           <SearchWrapper 
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
@@ -53,7 +68,7 @@ const RecommendationTop = ({ data, searchQuery, setSearchQuery, selectedTags, se
           />
         </div>
       </div>
-    </div>
+    </header>
   )
 }
 

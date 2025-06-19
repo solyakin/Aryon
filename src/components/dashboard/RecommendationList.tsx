@@ -15,7 +15,7 @@ interface RecommendationListProps {
 
 const RecommendationList = ({data, ref, isFetchingNextPage, status, hasNextPage, type}: RecommendationListProps) => {
   return (
-    <div className="min-h-[100vh] overflow-y-auto">
+    <div className="">
         <div className="space-y-3">
             {status === 'pending' ? (
             <div className="h-[calc(100vh-200px)] flex items-center justify-center">
@@ -33,7 +33,7 @@ const RecommendationList = ({data, ref, isFetchingNextPage, status, hasNextPage,
                 </div>
             </div>
             ) : (
-            <div className='space-y-4'>
+            <div className='space-y-4 min-h-[100vh] overflow-y-auto'>
                 {data?.pages.map((page, i) => (
                     <React.Suspense key={i}>
                         <React.Fragment>
