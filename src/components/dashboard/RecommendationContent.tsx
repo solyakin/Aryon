@@ -1,4 +1,3 @@
-
 import httpRequest from '../../lib/httpsRequest';
 import { useDebouncedValue } from "@/lib/debounceSearch";
 import { useInView } from "react-intersection-observer";
@@ -8,6 +7,7 @@ import { useUserAuthContext } from "@/context/user/user-hooks";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { RecommendationsAction } from "@/context/recommendations/types";
 import { useRecommendationsContext } from "@/context/recommendations/recommendations-hooks";
+import ErrorBoundary from "../ErrorBoundary";
 
 const SearchWrapper = React.lazy(() => import('@/components/dashboard/SearchWrapper'));
 const DashboardTitle = React.lazy(() => import('@/components/dashboard/DashboardTitle'));
@@ -27,16 +27,18 @@ const RecommendationsContent = () => {
         rootMargin: "0px 0px 400px 0px"
     });
 
-    const fetchRecommendations = useCallback(async ({ pageParam = null }: { pageParam?: string | null }) => {
-        if(!token) {
-        throw new Error("No authentication token found");
-        }
-        const response = await httpRequest({ token: token }).get(
-        `/recommendations?${pageParam ? `cursor=${pageParam}&` : ''}limit=${PAGE_SIZE}&search=${debouncedSearchQuery}&tags=${selectedTags.join(',')}`
-        );
-
-        return response.data;
-    }, [token, debouncedSearchQuery, selectedTags]);
+    const fetchRecommendations = useCallback(
+        async ({ pageParam = null }: { pageParam?: string | null }) => {
+            if (!token) {
+                throw new Error("No authentication token found");
+            }
+            const response = await httpRequest({ token: token }).get(
+                `/recommendations?${pageParam ? `cursor=${pageParam}&` : ''}limit=${PAGE_SIZE}&search=${debouncedSearchQuery}&tags=${selectedTags.join(',')}`
+            );
+            return response.data;
+        },
+        [token, debouncedSearchQuery, selectedTags]
+    );
 
     const {
         data,
@@ -71,17 +73,17 @@ const RecommendationsContent = () => {
             payload: data.pages[0].availableTags
         });
         }
-    }, [data?.pages, dispatch]);
-
-  return (
-    <div className="flex-1 py-4 px-4 md:px-8 bg-gray-100">
+    }, [data?.pages, dispatch]); 
+    return (
+    <ErrorBoundary>
+      <div className="flex-1 py-4 px-4 md:px-8 bg-gray-100">
         <div className="sticky top-0 z-30 bg-gray-100 pb-5">
-            <DashboardTitle 
-                title="Recommendations"
-                subtitle="View all recommendations"
-                link="/recommendations/archive"
-                actionLabel="Archived"
-            />
+          <DashboardTitle 
+              title="Recommendations"
+              subtitle="View all recommendations"
+              link="/recommendations/archive"
+              actionLabel="Archived"
+          />
         </div>
         <SearchWrapper 
             searchQuery={searchQuery}
@@ -102,7 +104,8 @@ const RecommendationsContent = () => {
             status={status}
             hasNextPage={hasNextPage}
         />
-    </div>
+      </div>
+    </ErrorBoundary>
   );
 }
 

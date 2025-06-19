@@ -7,15 +7,18 @@ import { BrowserRouter } from 'react-router-dom';
 import { QueryClientProvider } from '@tanstack/react-query'
 import { UserAuthContextProvider } from './context/user/user-context.tsx'
 import { Toaster } from 'react-hot-toast'
+import ErrorBoundary from './components/ErrorBoundary'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <UserAuthContextProvider>
-          <Toaster />
-          <App />
-        </UserAuthContextProvider>
+        <ErrorBoundary>
+          <UserAuthContextProvider>
+            <Toaster />
+            <App />
+          </UserAuthContextProvider>
+        </ErrorBoundary>
       </BrowserRouter>
     </QueryClientProvider>
   </StrictMode>,

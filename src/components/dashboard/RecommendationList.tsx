@@ -35,7 +35,7 @@ const RecommendationList = ({data, ref, isFetchingNextPage, status, hasNextPage,
             ) : (
             <div className='space-y-4'>
                 {data?.pages.map((page, i) => (
-                    <React.Suspense fallback={<div>loading</div>} key={i}>
+                    <React.Suspense key={i}>
                         <React.Fragment>
                             {page.data.map((item: any, index: number) => (
                                 <RecommendationCard

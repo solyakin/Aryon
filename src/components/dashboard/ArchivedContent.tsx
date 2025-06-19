@@ -10,6 +10,7 @@ import { useInView } from 'react-intersection-observer';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import type { GlobalResponseState } from '@/types/global';
 import { useUserAuthContext } from '@/context/user/user-hooks';
+import ErrorBoundary from '../ErrorBoundary';
 
 const RecommendationTop = React.lazy(() => import('@/components/dashboard/RecommendationTop'));
 const RecommendationList = React.lazy(() => import('@/components/dashboard/RecommendationList'));
@@ -66,21 +67,27 @@ const ArchivedRecommendationContent = () => {
 
   return (
     <div className="flex-1 py-4 px-8 bg-gray-100">
-        <RecommendationTop 
-        data={memoizedRecommendations?.pages}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        selectedTags={selectedTags}
-        setSelectedTags={setSelectedTags}
-        />
-        <RecommendationList 
-        data={memoizedRecommendations}
-        ref={ref}
-        type="archived"
-        isFetchingNextPage={isFetchingNextPage}
-        status={status}
-        hasNextPage={hasNextPage}
-        />
+      <ErrorBoundary>
+        <React.Suspense>
+          <RecommendationTop 
+            data={memoizedRecommendations?.pages}
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            selectedTags={selectedTags}
+            setSelectedTags={setSelectedTags}
+          />
+        </React.Suspense>
+        <React.Suspense>
+          <RecommendationList 
+            data={memoizedRecommendations}
+            ref={ref}
+            type="archived"
+            isFetchingNextPage={isFetchingNextPage}
+            status={status}
+            hasNextPage={hasNextPage}
+          />
+        </React.Suspense>
+      </ErrorBoundary>
     </div>
   )
 }

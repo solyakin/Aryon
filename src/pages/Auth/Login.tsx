@@ -13,10 +13,12 @@ import logo from "@/assets/aryonlogo.png";
 import { Input } from "@/components/ui/input";
 import httpRequest  from "@/lib/httpsRequest";
 import { Label } from "@/components/ui/label";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UserAuthAction } from "@/context/user/user-reducer";
 import { useUserAuthContext } from "@/context/user/user-hooks";
+import toast from "react-hot-toast";
+import { handleErrorMessage } from "@/lib/errorhandler";
 
 const formSchema = z.object({
   username: z.string()
@@ -34,7 +36,6 @@ const LoginForm = () => {
 
   const navigate = useNavigate();
   const { dispatch } = useUserAuthContext();
-
   const {
     register,
     handleSubmit,
@@ -55,7 +56,14 @@ const LoginForm = () => {
       });
       navigate("/recommendations");
     } catch (error) {
-        console.error('Login error:', error);
+      console.error('Login error:', error);
+      toast.error(handleErrorMessage(error), {
+        position: 'top-right',
+        style: {
+          backgroundColor: '#f8d7da',
+          color: '#721c24',
+        }
+      });
     }
   };
 
@@ -109,12 +117,6 @@ const LoginForm = () => {
                   {isSubmitting ? "Logging in..." : "Login"}
                 </Button>
               </div>
-            </div>
-            <div className="mt-4 text-center text-sm">
-              Don&apos;t have an account?{" "}
-              <Link to="/register" className="">
-                Sign up
-              </Link>
             </div>
           </form>
         </CardContent>
