@@ -59,7 +59,7 @@ const Register = () => {
       <Card className="w-full max-w-sm mx-auto">
         <CardHeader>
             <div className="p-1 rounded-sm bg-teal-50 mx-auto mb-5">
-                <img src={logo} alt="Aryon Logo" className="w-12 h-12 object-cover" />
+              <img src={logo} alt="Aryon Logo" className="w-12 h-12 object-cover" />
             </div>
           <CardTitle>Create a new account</CardTitle>
           <CardDescription>

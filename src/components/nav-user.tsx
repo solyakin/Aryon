@@ -1,13 +1,10 @@
-"use client"
 
 import {
   BadgeCheck,
   Bell,
   ChevronsUpDown,
-  CreditCard,
   LogOut,
 } from "lucide-react"
-
 import {
   Avatar,
   AvatarFallback,
@@ -28,7 +25,9 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
-import { useUserAuthContext } from "@/context/user/user-hooks"
+import { 
+  useUserAuthContext
+} from "@/context/user/user-hooks"
 
 export function NavUser({
   user,
@@ -90,10 +89,6 @@ export function NavUser({
               <DropdownMenuItem>
                 <BadgeCheck />
                 Account
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <CreditCard />
-                Billing
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <Bell />

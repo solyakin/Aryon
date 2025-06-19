@@ -5,12 +5,12 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { useState } from "react";
-import { Checkbox } from "@/components/ui/checkbox"
 import { useRecommendationsContext } from "@/context/recommendations/recommendations-hooks";
 import type { Dispatch, SetStateAction } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { SelectedFilters } from "@/context/recommendations/types";
 import { useQueryClient } from "@tanstack/react-query";
+import FilterItem from "./FilterItem";
 
 interface SearchWrapperProps {
   count: number;
@@ -28,30 +28,29 @@ const FILTER_CATEGORIES = {
   classes: "Classes"
 } as const;
 
-type FilterCategory = keyof typeof FILTER_CATEGORIES;
+export type FilterCategory = keyof typeof FILTER_CATEGORIES;
 
 const SearchWrapper = ({ count, totalCount, searchQuery, setSearchQuery, selectedTags, setSelectedTags }: SearchWrapperProps) => {
     
     const queryClient = useQueryClient();
     const [filterSearch, setFilterSearch] = useState("");
     const { availableTags, selectedFilters, dispatch } = useRecommendationsContext();
+    console.log("Available Tags:", availableTags);
 
     const handleFilterChange = (category: FilterCategory, value: string) => {
-    
-        if (selectedTags.includes(value)) {
+      if (selectedTags.includes(value)) {
         setSelectedTags(selectedTags.filter(tag => tag !== value));
-        } else {
+      } else {
         setSelectedTags([...selectedTags, value]);
-        }
-
-        dispatch({
+      }
+      dispatch({
         type: "UPDATE_SELECTED_FILTERS",
         payload: { [category]: selectedTags.includes(value) ? selectedTags.filter(tag => tag !== value) : [...selectedTags, value] }
-        });
+      });
     };
 
     const getSelectedFiltersCount = (filters: SelectedFilters): number => {
-        return Object.values(filters).reduce((acc, curr) => acc + (curr?.length || 0), 0);
+      return Object.values(filters).reduce((acc, curr) => acc + (curr?.length || 0), 0);
     };
 
     const clearFilters = async() => {
@@ -64,8 +63,11 @@ const SearchWrapper = ({ count, totalCount, searchQuery, setSearchQuery, selecte
         ]);
     };
 
+
+    // console.log("Available Tags:", availableTags);
+
   return (
-    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 md:gap-2 mt-8">
+    <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 md:gap-2 mt-5 mb-5">
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 w-full md:w-auto">
         <div className="flex items-center gap-2 border border-gray-300 bg-white rounded-sm p-2 w-full sm:w-auto">
           <Search className="size-4 flex-shrink-0" />
@@ -103,98 +105,34 @@ const SearchWrapper = ({ count, totalCount, searchQuery, setSearchQuery, selecte
               </div>
             </div>
             <ScrollArea className="h-[300px]">
-                <div className="p-3">
-                    <div className="flex items-center justify-between mb-1">
-                        <p className="">Cloud Providers</p>
-                        <p className="">{availableTags?.providers?.length}</p>
-                    </div>
-                    {
-                        availableTags?.providers?.map((tag: string, index: number) => (
-                            <div key={index} className="flex items-center justify-between py-1">
-                                <div className="flex items-center gap-2">
-                                    <Checkbox
-                                    id={`provider-${index}`}
-                                    checked={selectedFilters["providers"]?.includes(tag)}
-                                    onCheckedChange={() => handleFilterChange("providers", tag)}
-                                    className="data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600"
-                                    />
-                                    <label htmlFor={`provider-${index}`} className="text-sm text-gray-700">
-                                    {tag}
-                                    </label>
-                                </div>
-                            </div>
-                        ))
-                    }
-                </div>
-                <div className="p-3">
-                    <div className="flex items-center justify-between mb-1">
-                        <p className="">Frameworks</p>
-                        <p className="">{availableTags?.frameworks?.length}</p>
-                    </div>
-                    {
-                        availableTags?.frameworks?.map((tag: string, index: number) => (
-                            <div key={index} className="flex items-center justify-between py-1">
-                                <div className="flex items-center gap-2">
-                                    <Checkbox
-                                    id={`framework-${index}`}
-                                    checked={selectedFilters["frameworks"]?.includes(tag)}
-                                    onCheckedChange={() => handleFilterChange("frameworks", tag)}
-                                    className="data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600"
-                                    />
-                                    <label htmlFor={`framework-${index}`} className="text-sm text-gray-700">
-                                    {tag}
-                                    </label>
-                                </div>
-                            </div>
-                        ))
-                    }
-                </div>
-                <div className="p-3">
-                    <div className="flex items-center justify-between mb-1">
-                        <p className="">Reasons</p>
-                        <p className="">{availableTags?.reasons?.length}</p>
-                    </div>
-                    {
-                        availableTags?.reasons?.map((tag: string, index: number) => (
-                            <div key={index} className="flex items-center justify-between py-1">
-                                <div className="flex items-center gap-2">
-                                    <Checkbox
-                                    id={`reason-${index}`}
-                                    checked={selectedFilters["reasons"]?.includes(tag)}
-                                    onCheckedChange={() => handleFilterChange("reasons", tag)}
-                                    className="data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600"
-                                    />
-                                    <label htmlFor={`reason-${index}`} className="text-sm text-gray-700">
-                                    {tag}
-                                    </label>
-                                </div>
-                            </div>
-                        ))
-                    }
-                </div>
-                <div className="p-3">
-                    <div className="flex items-center justify-between mb-1">
-                        <p className="">Classes</p>
-                        <p className="">{availableTags?.classes?.length}</p>
-                    </div>
-                    {
-                        availableTags?.classes?.map((tag: string, index: number) => (
-                            <div key={index} className="flex items-center justify-between py-1">
-                                <div className="flex items-center gap-2">
-                                    <Checkbox
-                                    id={`class-${index}`}
-                                    checked={selectedFilters["classes"]?.includes(tag)}
-                                    onCheckedChange={() => handleFilterChange("classes", tag)}
-                                    className="data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600"
-                                    />
-                                    <label htmlFor={`class-${index}`} className="text-sm text-gray-700">
-                                    {tag}
-                                    </label>
-                                </div>
-                            </div>
-                        ))
-                    }
-                </div>
+              <FilterItem 
+              title="Cloud Providers"
+              category="providers"
+              availableTags={availableTags?.providers || []}
+              selectedFilters={selectedFilters}
+              handleFilterChange={handleFilterChange}
+              />
+              <FilterItem 
+              title="Frameworks"
+              category="frameworks"
+              availableTags={availableTags?.frameworks || []}
+              selectedFilters={selectedFilters}
+              handleFilterChange={handleFilterChange}
+              />
+              <FilterItem 
+              title="Reasons"
+              category="reasons"
+              availableTags={availableTags?.reasons || []}
+              selectedFilters={selectedFilters}
+              handleFilterChange={handleFilterChange}
+              />
+              <FilterItem 
+              title="Classes"
+              category="classes"
+              availableTags={availableTags?.classes || []}
+              selectedFilters={selectedFilters}
+              handleFilterChange={handleFilterChange}
+              />
             </ScrollArea>
             <div className="border-t border-gray-200">
               <button

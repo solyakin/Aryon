@@ -1,4 +1,9 @@
-export interface ResponseData {
+export interface GlobalResponseState {
+  pages: RecommendationResponseData[];
+  pageParams: number[] | null[];
+}
+
+export interface RecommendationResponseData {
   data: RecommendationDataProps[]
   pagination: Pagination
   availableTags: AvailableTags

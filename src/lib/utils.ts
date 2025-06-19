@@ -1,11 +1,10 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
+import { setCookie } from "cookies-next";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
-
-import { setCookie } from "cookies-next";
 
 interface CookieOptionProps {
     path?: string;
@@ -50,6 +49,5 @@ export const setClientCookie = ({
             httpOnly: false,
         };
     }
-
     setCookie(cookieName, cookieValue, cookieOptions);
 };

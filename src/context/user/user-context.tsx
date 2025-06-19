@@ -1,6 +1,6 @@
-import { createContext, useEffect, useReducer, type ReactNode } from "react";
 import { getCookie } from "cookies-next";
 import { type IUserAuthContext } from "./type";
+import { createContext, useEffect, useReducer, type ReactNode } from "react";
 import { UserAuthAction, UserAuthReducer, UserInitialState } from "./user-reducer";
 
 export const UserAuthContext = createContext<IUserAuthContext>({
@@ -11,7 +11,6 @@ export const UserAuthContext = createContext<IUserAuthContext>({
 });
 
 export const userAuthCookieName = "userAuthCookieName";
-
 interface IAuthProvider {
     children: ReactNode;
 }
@@ -54,7 +53,6 @@ export function UserAuthContextProvider({ children }: IAuthProvider) {
     };
 
     return (
-         // @ts-ignore 
         <UserAuthContext.Provider value={{ ...state, dispatch }}>
             {children}
         </UserAuthContext.Provider>

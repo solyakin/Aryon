@@ -72,8 +72,6 @@ const RecommendationDetails = ({ open, setOpen, item, status }: RecommendationDe
     }
   }
 
-  console.log("Recommendation item:", item);
-
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerContent className="sm:w-3xl h-screen ml-auto rounded-none">

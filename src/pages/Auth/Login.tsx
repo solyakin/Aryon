@@ -1,3 +1,4 @@
+import * as z from "zod";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -7,16 +8,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useForm } from "react-hook-form";
 import logo from "@/assets/aryonlogo.png";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useUserAuthContext } from "@/context/user/user-hooks";
-import { Link, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
 import httpRequest  from "@/lib/httpsRequest";
+import { Label } from "@/components/ui/label";
+import { Link, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import { UserAuthAction } from "@/context/user/user-reducer";
+import { useUserAuthContext } from "@/context/user/user-hooks";
 
 const formSchema = z.object({
   username: z.string()
@@ -32,32 +32,32 @@ type FormData = z.infer<typeof formSchema>;
 
 const LoginForm = () => {   
 
-    const navigate = useNavigate();
-    const { dispatch } = useUserAuthContext();
+  const navigate = useNavigate();
+  const { dispatch } = useUserAuthContext();
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors, isSubmitting },
-    } = useForm<FormData>({
-        resolver: zodResolver(formSchema),
-    });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<FormData>({
+    resolver: zodResolver(formSchema),
+  });
 
-    const onSubmit = async (data: FormData) => {
-        try {
-            const response = await httpRequest({ token: "" }).post(
-                `/login`,
-                data
-            );
-            dispatch({
-                type: UserAuthAction.SET_TOKEN as keyof typeof UserAuthAction,
-                payload: response?.data?.token ,
-            });
-            navigate("/recommendations");
-        } catch (error) {
-            console.error('Login error:', error);
-        }
-    };
+  const onSubmit = async (data: FormData) => {
+    try {
+      const response = await httpRequest({ token: "" }).post(
+        `/login`,
+        data
+      );
+      dispatch({
+        type: UserAuthAction.SET_TOKEN as keyof typeof UserAuthAction,
+        payload: response?.data?.token,
+      });
+      navigate("/recommendations");
+    } catch (error) {
+        console.error('Login error:', error);
+    }
+  };
 
     return (
     <div className={cn("min-h-screen flex flex-col bg-primary-foreground justify-center items-center gap-6 py-8")}>
@@ -76,28 +76,28 @@ const LoginForm = () => {
             <div className="flex flex-col gap-6">
               <div className="grid gap-3">
                 <Label htmlFor="email">Username</Label>
-                    <Input
-                    id="username"
-                    type="text"
-                    placeholder="Enter your username"
-                    {...register("username")}
-                    aria-invalid={!!errors.username}
-                    />
-                    {errors.username && (
-                    <p className="text-sm text-red-500">{errors.username.message}</p>
-                    )}
+                  <Input
+                  id="username"
+                  type="text"
+                  placeholder="Enter your username"
+                  {...register("username")}
+                  aria-invalid={!!errors.username}
+                  />
+                  {errors.username && (
+                  <p className="text-sm text-red-500">{errors.username.message}</p>
+                  )}
               </div>
               <div className="grid gap-3">
                 <Label htmlFor="password">Password</Label>
                 <Input
-                    id="password"
-                    type="password"
-                    placeholder="Enter your password"
-                    {...register("password")}
-                    aria-invalid={!!errors.password}
+                  id="password"
+                  type="password"
+                  placeholder="Enter your password"
+                  {...register("password")}
+                  aria-invalid={!!errors.password}
                 />
                 {errors.password && (
-                    <p className="text-sm text-red-500">{errors.password.message}</p>
+                  <p className="text-sm text-red-500">{errors.password.message}</p>
                 )}
               </div>
               <div className="flex flex-col gap-3">

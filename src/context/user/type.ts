@@ -1,4 +1,3 @@
-// import { GenericUser } from "@/graphql/ark.schema.generated";
 import type { Dispatch } from "react";
 import type { UserAuthAction } from "./user-reducer";
 
@@ -7,7 +6,6 @@ export interface IUserAuthState {
     token: string;
     pageIsLoaded: boolean;
 }
-
 // Define the action types as a union of string literals
 // export type UserAuthActionEnum = keyof typeof UserAuthAction;
 export interface IUserAuthAction {
