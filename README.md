@@ -221,8 +221,7 @@ src/
 1. **Environment Variables**
 
    ```env
-   VITE_API_URL=http://localhost:3000
-   VITE_AUTH_TOKEN_KEY=auth_token
+   VITE_API_URL=https://aronserver-2.onrender.com
    ```
 
 2. **ESLint Configuration**
