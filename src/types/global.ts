@@ -12,7 +12,7 @@ export interface RecommendationResponseData {
 export interface RecommendationDataProps {
   tenantId: string;
   recommendationId: string;
-  title: string
+  title: string;
   slug: string;
   description: string;
   score: number;
@@ -27,43 +27,43 @@ export interface RecommendationDataProps {
 }
 
 export interface Framework {
-  name: string
-  section: string
-  subsection: string
+  name: string;
+  section: string;
+  subsection: string;
 }
 
 export interface FurtherReading {
-  name: string
-  href: string
+  name: string;
+  href: string;
 }
 
 export interface AffectedResource {
-  name: string
+  name: string;
 }
 
 export interface ImpactAssessment {
-  totalViolations: number
-  mostImpactedScope: MostImpactedScope
+  totalViolations: number;
+  mostImpactedScope: MostImpactedScope;
 }
 
 export interface MostImpactedScope {
-  name: string
-  type: string
-  count: number
+  name: string;
+  type: string;
+  count: number;
 }
 
 export interface Pagination {
-  cursor: Cursor
-  totalItems: number
+  cursor: Cursor;
+  totalItems: number;
 }
 
 export interface Cursor {
-  next: any
+  next: any;
 }
 
 export interface AvailableTags {
-  frameworks: string[]
-  reasons: string[]
-  providers: string[]
-  classes: string[]
+  frameworks: string[];
+  reasons: string[];
+  providers: string[];
+  classes: string[];
 }

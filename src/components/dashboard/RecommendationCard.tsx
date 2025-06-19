@@ -4,8 +4,8 @@ import { FaAws } from "react-icons/fa";
 import { FaGoogleDrive } from "react-icons/fa";
 import RecommendationDetails from "./RecommendationDetails";
 import { useState } from "react";
-import type { RecommendationDataProps } from "@/types/global";
 import { cn } from "@/lib/utils";
+import type { RecommendationDataProps } from "@/types/global";
 interface RecommendationCardProps {
     status: "active" | "archived";
     item: RecommendationDataProps;
@@ -33,20 +33,13 @@ const RecommendationCard = ({ item, status }: RecommendationCardProps) => {
   return (
     <div className="flex flex-col sm:flex-row bg-white rounded-md">
         <div onClick={() => setOpen(true)} 
-        className={cn(status === "archived" ? "bg-gray-300" : "bg-teal-500", "rounded-t-md sm:rounded-t-none sm:rounded-l-md flex flex-row sm:flex-col justify-center items-center p-4 cursor-pointer w-full md:w-[170px]")}>
+        className={cn(status === "archived" ? "bg-gray-300 hover:bg-gray-400 transition-colors" : "bg-teal-500 hover:bg-teal-600 transition-colors", "rounded-t-md sm:rounded-t-none sm:rounded-l-md flex flex-row sm:flex-col justify-center items-center p-4 cursor-pointer w-full md:w-[170px]")}>
             <Box className="size-10 text-white sm:mb-2 sm:mx-auto" />
         </div>
         <div className="flex-1 p-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-0 mb-3">
                 <h3 className="text-lg font-semibold">{item?.title}</h3>
                 <div className="flex items-center gap-4">
-                    {/* {
-                        item?.frameworks?.map((framework, index) => (
-                            <div key={index}>
-                                {getFrameworkIcon(framework.name)}
-                            </div>
-                        ))
-                    } */}
                     <VscAzure className="w-5 h-5 text-gray-600" />
                     <FaAws className="w-5 h-5 text-gray-600" />
                     <FaGoogleDrive className="w-5 h-5 text-gray-600" />
