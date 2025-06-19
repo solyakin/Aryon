@@ -11,12 +11,12 @@ interface DashboardTitleProps {
 const DashboardTitle = ({ title, subtitle, link, actionLabel }: DashboardTitleProps) => {
   return (
     <header className="flex items-center justify-between" role="banner">
-      <div className="flex items-center gap-2">
-        <h1 className="text-lg sm:text-2xl font-medium">
-          {title}
-          <span className="sr-only">{subtitle}</span>
-        </h1>
-        <Sparkles className="size-4 sm:size-6 text-teal-600" aria-hidden="true" />
+      <div className="flex flex-col gap-1">
+        <div className="flex items-center gap-2">
+          <h1 className="text-lg sm:text-2xl font-medium">{title}</h1>
+          <Sparkles className="size-4 sm:size-6 text-teal-600" aria-hidden="true" />
+        </div>
+        <p className="text-sm text-gray-600">{subtitle}</p>
       </div>
       <Link 
         to={link} 
