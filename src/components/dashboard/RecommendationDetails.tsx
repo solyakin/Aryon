@@ -93,9 +93,9 @@ const RecommendationDetails = ({ open, setOpen, item, status }: RecommendationDe
   }
 
   return (
-    <Drawer open={open} onOpenChange={setOpen}>
-      <ErrorBoundary>
-        <DrawerContent className="sm:w-3xl h-screen ml-auto rounded-none" role="dialog" aria-modal="true" aria-labelledby="recommendation-title">
+    <ErrorBoundary>
+      <Drawer open={open} onOpenChange={setOpen}>
+        <DrawerContent data-testid="custom-modal" className="sm:w-3xl h-screen ml-auto rounded-none" role="dialog" aria-modal="true" aria-labelledby="recommendation-title">
           <DrawerHeader className="flex flex-row items-center justify-between border-b pb-4">
             <DrawerTitle id="recommendation-title" className="">
               <DetailHeader item={item} />
@@ -109,20 +109,30 @@ const RecommendationDetails = ({ open, setOpen, item, status }: RecommendationDe
           <DetailsBody item={item} />
           <DrawerFooter>
             <div className="flex justify-end gap-6 w-full border-t pt-4">
-              <button 
-                onClick={() => {
-                  if(status === 'archived'){
-                    handleUnArchive();
-                  } else {
-                    handleArchieve();
-                  }
-                }} 
-                className="cursor-pointer flex items-center gap-2 px-4 py-2 text-gray-600 hover:bg-gray-100 rounded"
-                aria-label={status === 'archived' ? "Unarchive recommendation" : "Archive recommendation"}
-              >
-                <Archive className="w-4 h-4" aria-hidden="true"/>
-                {status === 'archived' ? "Unarchive" : "Archive"}
-              </button>
+              {
+                status === 'archived' ? (
+                  <button 
+                    onClick={handleUnArchive} 
+                    data-testid="unarchive-btn"
+                    className="cursor-pointer flex items-center gap-2 px-4 py-2 text-gray-600 hover:bg-gray-100 rounded"
+                    aria-label={"Unarchive recommendation"}
+                  >
+                    <Archive className="w-4 h-4" aria-hidden="true"/>
+                    Unarchive
+                  </button>
+                ) : (
+                  <button 
+                    onClick={handleArchieve} 
+                    data-testid="archive-btn"
+                    className="cursor-pointer flex items-center gap-2 px-4 py-2 text-gray-600 hover:bg-gray-100 rounded"
+                    aria-label={"Archive recommendation"}
+                  >
+                    <Archive className="w-4 h-4" aria-hidden="true"/>
+                     Archive
+                  </button>
+                )
+              }
+              
               <button 
                 className="px-4 py-2 bg-teal-500 text-white rounded hover:bg-teal-600"
                 aria-label="Configure policy"
@@ -132,8 +142,8 @@ const RecommendationDetails = ({ open, setOpen, item, status }: RecommendationDe
             </div>
           </DrawerFooter>
         </DrawerContent>
-      </ErrorBoundary>
-    </Drawer>
+      </Drawer>
+    </ErrorBoundary>
   );
 }
 

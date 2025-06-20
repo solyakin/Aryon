@@ -50,7 +50,6 @@ describe('SearchWrapper', () => {
 
   it('renders search input with correct attributes', () => {
     const { getByRole } = render(<TestComponent />);
-    
     const searchInput = getByRole('searchbox', { name: /search recommendations/i });
     expect(searchInput).toBeInTheDocument();
     expect(searchInput).toHaveAttribute('placeholder', 'Search recommendations...');
@@ -88,10 +87,10 @@ describe('SearchWrapper', () => {
       expect(popoverContent).toBeVisible();
     });
 
-    expect(screen.getByText('Cloud Providers')).toBeVisible();
-    expect(screen.getByText('Frameworks')).toBeVisible();
     expect(screen.getByText('Reasons')).toBeVisible();
     expect(screen.getByText('Classes')).toBeVisible();
+    expect(screen.getByText('Frameworks')).toBeVisible();
+    expect(screen.getByText('Cloud Providers')).toBeVisible();
     expect(screen.getByRole('searchbox', { name: /search filters/i })).toBeVisible();
     
     // Check that all mockAvailableTags are rendered as checkboxes
