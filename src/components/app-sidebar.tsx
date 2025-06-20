@@ -90,7 +90,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     return (
       <div className="block lg:hidden">
         <Sheet>
-          <div className="flex items-center justify-between bg-gray-100">
+          <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <img src={data.company.logo} className="w-10 h-10 object-cover" alt="" />
               <div className="">

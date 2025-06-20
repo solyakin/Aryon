@@ -3,16 +3,19 @@ import { BookOpen, Box, ChartColumnIncreasing, OctagonAlert, TriangleAlert } fro
 
 const DetailsBody = ({item}: {item: RecommendationDataProps}) => {
   return (
-    <div className="min-h-[calc(100vh-250px)] overflow-y-scroll p-6 flex flex-col gap-6">
+    <div className="min-h-[calc(100vh-250px)] overflow-y-scroll p-6 flex flex-col gap-6 bg-background">
         <article className="space-y-8">
-            <p className="text-gray-600">
+            <p className="text-card-foreground">
             {item?.description || "No description available for this recommendation."}
             </p>
             <section aria-labelledby="frameworks-title">
             <h3 id="frameworks-title" className="text-sm font-semibold">Compliance Frameworks</h3>
             <div className="flex items-center gap-2 mt-2" role="list">
                 {item?.frameworks?.map((framework, index) => (
-                <span key={index} role="listitem" className="text-xs text-gray-600 px-2 p-0.5 bg-gray-100 rounded-md font-semibold">
+                <span 
+                key={index} 
+                role="listitem" 
+                className="text-xs px-2 p-0.5 bg-border/95 rounded-md font-semibold">
                     {framework.name}
                 </span>
                 ))}
@@ -20,12 +23,12 @@ const DetailsBody = ({item}: {item: RecommendationDataProps}) => {
             </section>
             <section aria-labelledby="resources-title">
             <h3 id="resources-title" className="text-sm font-semibold flex items-center gap-2">
-                <Box className="size-5 text-gray-700" aria-hidden="true"/>
+                <Box className="size-5 text-accent-foreground" aria-hidden="true"/>
                 Affected Resources
             </h3>
-            <ul className="space-y-2 list-disc list-inside pl-4" role="list">
+            <ul className="space-y-2 list-disc list-inside pl-4 mt-2" role="list">
                 {item?.affectedResources?.map((resource, index) => (
-                <li key={index} className="text-xs text-gray-600 font-semibold max-w-max">
+                <li key={index} className="text-xs text-accent-foreground font-semibold max-w-max">
                     {resource.name}
                 </li>
                 ))}
@@ -33,12 +36,12 @@ const DetailsBody = ({item}: {item: RecommendationDataProps}) => {
             </section>
             <section aria-labelledby="reasons-title">
             <h3 id="reasons-title" className="text-sm font-semibold flex items-center gap-2">
-                <Box className="size-5 text-gray-700" aria-hidden="true"/>
+                <Box className="size-5 text-accent-foreground" aria-hidden="true"/>
                 Implementation Reasons
             </h3>
-            <div className="space-y-2" role="list">
+            <div className="space-y-2 mt-4" role="list">
                 {item?.reasons?.map((reason, index) => (
-                <p key={index} role="listitem" className="text-xs text-gray-600 px-2 p-0.5 bg-gray-100 rounded-md font-semibold max-w-max">
+                <p key={index} role="listitem" className="text-xs px-2 p-0.5 bg-border/95 rounded-md font-semibold max-w-max">
                     {reason}
                 </p>
                 ))}
@@ -52,11 +55,11 @@ const DetailsBody = ({item}: {item: RecommendationDataProps}) => {
             <div className="grid grid-cols-2 gap-3 mt-3">
                 <div className="border rounded-md shadow-sm p-4 space-y-3" role="status">
                 <div className="flex justify-between items-center">
-                    <p className="text-sm text-gray-600 font-medium">Overall</p>
+                    <p className="text-sm text-accent-foreground font-medium">Overall</p>
                     <OctagonAlert size={14} aria-hidden="true"/>
                 </div>
                 <div className="flex justify-between items-center">
-                    <h4 className="font-bold text-gray-800">Violations</h4>
+                    <h4 className="font-bold text-accent-foreground">Violations</h4>
                     <p className="font-bold text-2xl" aria-label={`${item?.impactAssessment?.totalViolations} violations`}>
                     {item?.impactAssessment?.totalViolations}
                     </p>
@@ -64,11 +67,11 @@ const DetailsBody = ({item}: {item: RecommendationDataProps}) => {
                 </div>
                 <div className="border rounded-md shadow-sm p-4 space-y-3" role="status">
                 <div className="flex justify-between items-center">
-                    <p className="text-sm text-gray-600 font-medium">Most impact scope</p>
+                    <p className="text-sm text-accent-foreground font-medium">Most impact scope</p>
                     <TriangleAlert size={14} aria-hidden="true"/>
                 </div>
                 <div className="flex justify-between items-center">
-                    <h4 className="font-bold text-gray-800">{item?.impactAssessment?.mostImpactedScope?.type}</h4>
+                    <h4 className="font-bold text-accent-foreground">{item?.impactAssessment?.mostImpactedScope?.type}</h4>
                     <p className="font-bold text-2xl" aria-label={`${item?.impactAssessment?.mostImpactedScope?.count} affected items`}>
                     {item?.impactAssessment?.mostImpactedScope?.count}
                     </p>
@@ -78,17 +81,17 @@ const DetailsBody = ({item}: {item: RecommendationDataProps}) => {
             </section>
             <section aria-labelledby="reading-title">
             <h3 id="reading-title" className="text-sm font-semibold flex items-center gap-2">
-                <BookOpen className="w-5 h-5 text-gray-600" aria-hidden="true"/>
+                <BookOpen className="w-5 h-5 text-accent-foreground" aria-hidden="true"/>
                 Further Reading
             </h3>
-            <div className="space-y-2">
+            <div className="space-y-2 mt-3">
                 {item?.furtherReading?.map((link, index) => (
                 <a 
                     key={index}
                     href={link?.href} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="hover:underline text-teal-600 flex items-center gap-1"
+                    className="hover:underline text-primary flex items-center gap-1"
                 >
                     {link?.name}
                     <span className="sr-only">(opens in new tab)</span>

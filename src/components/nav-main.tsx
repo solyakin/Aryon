@@ -36,10 +36,10 @@ export function NavMain({
               tooltip={item.title} 
               className={cn(
                 "cursor-pointer transition-colors",
-                isActive && "bg-teal-100 text-teal-600 hover:bg-teal-200"
+                isActive && "bg-teal-100 text-primary hover:bg-teal-200"
               )}
             >
-              {item.icon && <item.icon className={cn(isActive && "text-teal-600")} />}
+              {item.icon && <item.icon className={cn(isActive && "text-primary")} />}
               <span>{item.title}</span>
             </SidebarMenuButton>
           );

@@ -82,8 +82,8 @@ describe('RecommendationCard', () => {
 
     // Check active status styling
     let button = getByRole('button');
-    expect(button).toHaveClass('bg-teal-500');
-    expect(button).not.toHaveClass('bg-gray-300');
+    expect(button).toHaveClass('bg-primary');
+    expect(button).not.toHaveClass('bg-muted-foreground');
 
     // Rerender with archived status
     rerender(

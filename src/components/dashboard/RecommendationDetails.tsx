@@ -95,8 +95,8 @@ const RecommendationDetails = ({ open, setOpen, item, status }: RecommendationDe
   return (
     <ErrorBoundary>
       <Drawer open={open} onOpenChange={setOpen}>
-        <DrawerContent data-testid="custom-modal" className="sm:w-3xl h-screen ml-auto rounded-none" role="dialog" aria-modal="true" aria-labelledby="recommendation-title">
-          <DrawerHeader className="flex flex-row items-center justify-between border-b pb-4">
+        <DrawerContent data-testid="custom-modal" className="sm:w-3xl h-screen ml-auto rounded-none bg-background" role="dialog" aria-modal="true" aria-labelledby="recommendation-title">
+          <DrawerHeader className="flex flex-row items-center justify-between bg-background border-b pb-4">
             <DrawerTitle id="recommendation-title" className="">
               <DetailHeader item={item} />
             </DrawerTitle>
@@ -107,14 +107,14 @@ const RecommendationDetails = ({ open, setOpen, item, status }: RecommendationDe
             </DrawerClose>
           </DrawerHeader>
           <DetailsBody item={item} />
-          <DrawerFooter>
+          <DrawerFooter className="bg-background">
             <div className="flex justify-end gap-6 w-full border-t pt-4">
               {
                 status === 'archived' ? (
                   <button 
                     onClick={handleUnArchive} 
                     data-testid="unarchive-btn"
-                    className="cursor-pointer flex items-center gap-2 px-4 py-2 text-gray-600 hover:bg-gray-100 rounded"
+                    className="cursor-pointer flex items-center gap-2 px-4 py-2 text-card-foreground hover:bg-gray-100 rounded"
                     aria-label={"Unarchive recommendation"}
                   >
                     <Archive className="w-4 h-4" aria-hidden="true"/>
@@ -124,7 +124,7 @@ const RecommendationDetails = ({ open, setOpen, item, status }: RecommendationDe
                   <button 
                     onClick={handleArchieve} 
                     data-testid="archive-btn"
-                    className="cursor-pointer flex items-center gap-2 px-4 py-2 text-gray-600 hover:bg-gray-100 rounded"
+                    className="cursor-pointer flex items-center gap-2 px-4 py-2 text-card-foreground hover:bg-gray-100 rounded"
                     aria-label={"Archive recommendation"}
                   >
                     <Archive className="w-4 h-4" aria-hidden="true"/>
@@ -134,7 +134,7 @@ const RecommendationDetails = ({ open, setOpen, item, status }: RecommendationDe
               }
               
               <button 
-                className="px-4 py-2 bg-teal-500 text-white rounded hover:bg-teal-600"
+                className="px-4 py-2 bg-primary text-white rounded hover:bg-teal-600"
                 aria-label="Configure policy"
               >
                 Configure Policy

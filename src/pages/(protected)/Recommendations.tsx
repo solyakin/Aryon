@@ -15,7 +15,7 @@ function Recommendations() {
       <div className="h-screen">
         <SidebarProvider className="flex flex-col">
           <div className="flex flex-col lg:flex-row flex-1">
-            <div className="sticky top-0 z-50 bg-gray-100 lg:hidden p-4">
+            <div className="sticky top-0 z-50 bg-background lg:hidden p-4">
               <AppSidebar />
             </div>
             <div className="hidden lg:block">

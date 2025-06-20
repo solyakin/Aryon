@@ -8,28 +8,28 @@ const DetailHeader = ({item}: {item: RecommendationDataProps}) => {
   return (
     <div>
         <div className="flex gap-2">
-            <div className="bg-teal-600 p-4 rounded-sm" aria-hidden="true">
-                <Boxes className="w-8 h-8 text-white" />
+            <div className="bg-primary p-4 rounded-sm" aria-hidden="true">
+                <Boxes className="w-8 h-8 text-primary-foreground" />
             </div>
             <div className="text-left space-y-1 mt-1.5">
                 <h2 className="text-xl font-semibold">{item?.title}</h2>
                 <div className="flex gap-2 items-center">
                 <h4 className="text-sm font-semibold">Value score</h4>
                 <ValueScoreIndicator score={item?.score} recommendationId={item?.recommendationId} />
-                <p className="text-xs text-gray-500">({item?.score} / 100)</p>
+                <p className="text-xs text-muted-foreground">({item?.score} / 100)</p>
                 </div>
             </div>
             </div>
             <div className="flex items-center gap-2 mt-4">
             {item?.title?.toLowerCase().includes('azure') ? (
                 <div className="flex items-center gap-2">
-                <VscAzure className="w-4 h-4 text-gray-600" aria-hidden="true"/>
-                <p className="text-sm text-gray-500">Azure Environment</p>
+                <VscAzure className="w-4 h-4 text-muted-foreground" aria-hidden="true"/>
+                <p className="text-sm text-muted-foreground">Azure Environment</p>
                 </div>
             ) : item?.title?.toLowerCase().includes('aws') ? (
                 <div className="flex items-center gap-2">
-                <FaAws className="w-4 h-4 text-gray-600" aria-hidden="true"/>
-                <p className="text-sm text-gray-500">AWS Environment</p>
+                <FaAws className="w-4 h-4 text-muted-foreground" aria-hidden="true"/>
+                <p className="text-sm text-muted-foreground">AWS Environment</p>
                 </div>
             ) : null}
         </div>

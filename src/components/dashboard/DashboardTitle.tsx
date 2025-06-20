@@ -15,10 +15,10 @@ const DashboardTitle = ({ title, subtitle, link, actionLabel }: DashboardTitlePr
     <header className="flex items-center justify-between" role="banner">
       <div className="flex flex-col gap-1">
         <div className="flex items-center gap-2">
-          <h1 className="text-lg sm:text-2xl font-medium">{title}</h1>
-          <Sparkles className="size-4 sm:size-6 text-teal-600" aria-hidden="true" />
+          <h1 className="text-lg sm:text-2xl text-foreground font-medium">{title}</h1>
+          <Sparkles className="size-4 sm:size-6 text-primary" aria-hidden="true" />
         </div>
-        <p className="text-sm text-gray-600">{subtitle}</p>
+        <p className="text-sm text-muted-foreground">{subtitle}</p>
       </div>
       <div className="flex items-center gap-2 border shadow-md border-accent rounded-full p-2">
         <button onClick={toggleTheme}>
