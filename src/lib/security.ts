@@ -10,6 +10,7 @@ export const getCSPDirectives = () => {
       "'self'",
       process.env.NODE_ENV === 'development' ? 'ws:' : '', // For WebSocket in development
       'https://*.vercel.app', // For Vercel deployments
+      'https://aryon-9gcl.vercel.app',
       'https://aronserver-2.onrender.com', // API domain
     ],
     'frame-ancestors': ["'none'"],
