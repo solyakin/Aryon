@@ -19,8 +19,8 @@ A modern web application for managing and tracking cloud security recommendation
    # Install dependencies
    npm install
 
-   # Set up environment variables
-   cp .env.example .env
+   # Set up environment variables and add this variable
+   VITE_API_URL=https://aronserver-2.onrender.com
    ```
 
 3. **Development**
