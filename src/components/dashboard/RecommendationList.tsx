@@ -1,19 +1,19 @@
 import React from "react"
 import { Inbox, Loader } from "lucide-react"
-import type { GlobalResponseState } from "@/types/global";
+import type { GlobalResponseState, RecommendationDataProps } from "@/types/global";
 
 const RecommendationCard = React.lazy(() => import('@/components/dashboard/RecommendationCard'));
 
 interface RecommendationListProps {
   data: GlobalResponseState | undefined;
-  ref: React.RefObject<HTMLDivElement> | any;
+  inViewRef: React.RefObject<HTMLDivElement> | ((node?: Element | null) => void);
   isFetchingNextPage: boolean;
   status: string;
   type: 'archived' | 'active';
   hasNextPage: boolean;
 }
 
-const RecommendationList = ({data, ref, isFetchingNextPage, status, hasNextPage, type}: RecommendationListProps) => {
+const RecommendationList = ({data, inViewRef, isFetchingNextPage, status, hasNextPage, type}: RecommendationListProps) => {
   return (
     <div className="">
         <div className="space-y-3">
@@ -37,7 +37,7 @@ const RecommendationList = ({data, ref, isFetchingNextPage, status, hasNextPage,
                 {data?.pages.map((page, i) => (
                     <React.Suspense key={i}>
                         <React.Fragment>
-                            {page.data.map((item: any, index: number) => (
+                            {page.data.map((item: RecommendationDataProps, index: number) => (
                                 <RecommendationCard
                                 item={item}
                                 status={type}
@@ -48,7 +48,7 @@ const RecommendationList = ({data, ref, isFetchingNextPage, status, hasNextPage,
                     </React.Suspense>
                 ))}
                 <div
-                ref={ref}
+                ref={inViewRef}
                 className="h-10 flex items-center justify-center"
                 >
                     {isFetchingNextPage

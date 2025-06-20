@@ -44,7 +44,7 @@ export const UserAuthReducer = (
         case UserAuthAction.SET_USER:
             return {
                 ...state,
-                user: payload as any,
+                user: payload as string | null,
             };
         case UserAuthAction.LOG_OUT:
             // Remove cookie & local storage data

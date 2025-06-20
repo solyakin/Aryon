@@ -251,7 +251,11 @@ const RecommendationDetails = ({ open, setOpen, item, status }: RecommendationDe
             <div className="flex justify-end gap-6 w-full border-t pt-4">
               <button 
                 onClick={() => {
-                  status === 'archived' ? handleUnArchive() : handleArchieve();
+                  if(status === 'archived'){
+                    handleUnArchive();
+                  } else {
+                    handleArchieve();
+                  }
                 }} 
                 className="cursor-pointer flex items-center gap-2 px-4 py-2 text-gray-600 hover:bg-gray-100 rounded"
                 aria-label={status === 'archived' ? "Unarchive recommendation" : "Archive recommendation"}

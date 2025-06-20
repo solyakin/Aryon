@@ -98,7 +98,7 @@ const RecommendationsContent = () => {
         />
         <RecommendationList 
             data={memoizedRecommendations}
-            ref={ref}
+            inViewRef={ref}
             type='active'
             isFetchingNextPage={isFetchingNextPage}
             status={status}

@@ -80,7 +80,7 @@ const ArchivedRecommendationContent = () => {
         <React.Suspense>
           <RecommendationList 
             data={memoizedRecommendations}
-            ref={ref}
+            inViewRef={ref}
             type="archived"
             isFetchingNextPage={isFetchingNextPage}
             status={status}

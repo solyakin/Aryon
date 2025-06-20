@@ -6,6 +6,7 @@ export function securityHeaders(): Plugin {
     name: 'security-headers',
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
+        console.log('Setting security headers for request:', req.url);
         // Add security headers
         res.setHeader('X-Content-Type-Options', 'nosniff');
         res.setHeader('X-Frame-Options', 'DENY');

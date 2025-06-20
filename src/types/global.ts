@@ -58,7 +58,7 @@ export interface Pagination {
 }
 
 export interface Cursor {
-  next: any;
+  next: string;
 }
 
 export interface AvailableTags {
