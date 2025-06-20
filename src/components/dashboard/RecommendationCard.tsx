@@ -3,9 +3,12 @@ import { VscAzure } from "react-icons/vsc";
 import { FaAws } from "react-icons/fa";
 import { FaGoogleDrive } from "react-icons/fa";
 import RecommendationDetails from "./RecommendationDetails";
-import { useState } from "react";
+import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import type { RecommendationDataProps } from "@/types/global";
+
+
+const ValueScoreIndicator  = React.lazy(() => import("./ValueScoreIndicator"));
 interface RecommendationCardProps {
     status: "active" | "archived";
     item: RecommendationDataProps;
@@ -58,20 +61,7 @@ const RecommendationCard = ({ item, status }: RecommendationCardProps) => {
                 </div>
                 <div className="flex gap-2 justify-center items-center mt-4">
                     <h3 className="text-sm font-semibold" id={`value-score-${item?.recommendationId}`}>Value score</h3>
-                    <div 
-                        className="flex items-center gap-1" 
-                        role="meter"
-                        aria-labelledby={`value-score-${item?.recommendationId}`}
-                        aria-valuenow={item?.score || 0}
-                        aria-valuemin={0}
-                        aria-valuemax={100}
-                    >
-                        <div data-testid="score-indicator" className={`w-2.5 h-2.5 ${item?.score >= 25 ? 'bg-teal-600' : 'bg-gray-300'} rounded-[1.5px]`} aria-hidden="true"></div>
-                        <div data-testid="score-indicator" className={`w-2.5 h-2.5 ${item?.score >= 50 ? 'bg-teal-600' : 'bg-gray-300'} rounded-[1.5px]`} aria-hidden="true"></div>
-                        <div data-testid="score-indicator" className={`w-2.5 h-2.5 ${item?.score >= 75 ? 'bg-teal-600' : 'bg-gray-300'} rounded-[1.5px]`} aria-hidden="true"></div>
-                        <div data-testid="score-indicator" className={`w-2.5 h-2.5 ${item?.score >= 100 ? 'bg-teal-600' : 'bg-gray-300'} rounded-[1.5px]`} aria-hidden="true"></div>
-                        <span className="sr-only">Score: {item?.score} out of 100</span>
-                    </div>
+                    <ValueScoreIndicator score={item?.score} recommendationId={item?.recommendationId} />
                 </div>
             </aside>
             <RecommendationDetails 
