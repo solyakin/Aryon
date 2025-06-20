@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom'
 import ProtectedRoute from './components/ProtectedRoute'
 import Policies from './pages/(protected)/Policies'
 import EventsPage from './pages/(protected)/Event'
+// const CSPDebugger = React.lazy(() => import('./components/CSPDebugger').then(module => ({ default: module.CSPDebugger })))
 
 const Login = React.lazy(() => import('./pages/Auth/Login'))
 const Waivers = React.lazy(() => import('./pages/(protected)/Waivers'))
@@ -15,6 +16,7 @@ const ArchivedRecommendations = React.lazy(() => import('./pages/(protected)/Arc
 function App() {
   return (
   <div className="">
+    {/* {import.meta.env.DEV && <React.Suspense fallback={null}><CSPDebugger /></React.Suspense>} */}
     <Routes>
       <Route path='/' element={<Login />} />
       <Route path='/register' element={<Register />} />

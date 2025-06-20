@@ -11,7 +11,8 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage",
-    "test:watch": "vitest watch"
+    "test:watch": "vitest watch",
+    "test:csp": "node -e \"console.log(require('./src/lib/security').getCSPDirectives())\""
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
