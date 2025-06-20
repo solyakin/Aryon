@@ -66,29 +66,29 @@ const ArchivedRecommendationContent = () => {
   }, [inView, hasNextPage, fetchNextPage]);
 
   return (
-    <div className="flex-1 py-4 px-8 bg-gray-100">
-      <ErrorBoundary>
-        <React.Suspense>
-          <RecommendationTop 
-            data={memoizedRecommendations?.pages}
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            selectedTags={selectedTags}
-            setSelectedTags={setSelectedTags}
-          />
-        </React.Suspense>
-        <React.Suspense>
-          <RecommendationList 
-            data={memoizedRecommendations}
-            inViewRef={ref}
-            type="archived"
-            isFetchingNextPage={isFetchingNextPage}
-            status={status}
-            hasNextPage={hasNextPage}
-          />
-        </React.Suspense>
-      </ErrorBoundary>
-    </div>
+    <ErrorBoundary>
+      <div className="flex-1 py-4 px-8 bg-background text-foreground">
+          <React.Suspense>
+            <RecommendationTop 
+              data={memoizedRecommendations?.pages}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              selectedTags={selectedTags}
+              setSelectedTags={setSelectedTags}
+            />
+          </React.Suspense>
+          <React.Suspense>
+            <RecommendationList 
+              data={memoizedRecommendations}
+              inViewRef={ref}
+              type="archived"
+              isFetchingNextPage={isFetchingNextPage}
+              status={status}
+              hasNextPage={hasNextPage}
+            />
+          </React.Suspense>
+      </div>
+    </ErrorBoundary>
   )
 }
 

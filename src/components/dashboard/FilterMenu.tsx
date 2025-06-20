@@ -60,31 +60,31 @@ const FilterMenuList = ({ selectedTags, setSelectedTags }: FilterMenuListProps) 
             aria-expanded="false"
             aria-label="Filter"
             tabIndex={0}
-            className="border border-gray-300 p-2.5 rounded-sm flex items-center justify-center sm:justify-start gap-2 hover:bg-gray-200 transition-colors cursor-pointer w-full sm:w-auto"
+            className="border border-input bg-card p-2.5 rounded-sm flex items-center justify-center sm:justify-start gap-2 hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer w-full sm:w-auto"
         >
-            <Filter className="size-3 text-gray-600" aria-hidden="true" />
+            <Filter className="size-3 text-muted-foreground" aria-hidden="true" />
             <span className="text-sm">Filter</span>
             {getSelectedFiltersCount(selectedFilters) > 0 && (
-            <span className="bg-blue-600 text-white text-xs rounded-full px-2 py-0.5" role="status" aria-live="polite">
+            <span className="bg-primary text-primary-foreground text-xs rounded-full px-2 py-0.5" role="status" aria-live="polite">
                 {getSelectedFiltersCount(selectedFilters)}
             </span>
             )}
         </div>
         </PopoverTrigger>
         <PopoverContent className="w-[calc(100vw-2rem)] sm:w-80 p-0">
-        <div className="p-2 border-b border-gray-200">
-            <div className="flex items-center gap-2">
-            <Search className="size-4" aria-hidden="true" />
-            <label htmlFor="filter-search" className="sr-only">Search filters</label>
-            <input
-                id="filter-search"
-                type="search"
-                placeholder="Search filters..."
-                value={filterSearch}
-                onChange={(e) => setFilterSearch(e.target.value)}
-                className="border-none outline-none text-sm focus:ring-0 bg-transparent w-full text-gray-700"
-                aria-label="Search filters"
-            />
+        <div className="p-2 border-b border-border">
+            <div className="flex items-center p-1.5 gap-2">
+                <Search className="size-4 text-muted-foreground" aria-hidden="true" />
+                <label htmlFor="filter-search" className="sr-only">Search filters</label>
+                <input
+                    id="filter-search"
+                    type="search"
+                    placeholder="Search filters..."
+                    value={filterSearch}
+                    onChange={(e) => setFilterSearch(e.target.value)}
+                    className="border-none outline-none text-sm focus:ring-0 bg-transparent w-full text-foreground placeholder:text-muted-foreground"
+                    aria-label="Search filters"
+                />
             </div>
         </div>
         <ScrollArea className="h-[300px]">
@@ -119,10 +119,10 @@ const FilterMenuList = ({ selectedTags, setSelectedTags }: FilterMenuListProps) 
             })}
             </nav>
         </ScrollArea>
-        <div className="border-t border-gray-200">
+        <div className="border-t border-border">
             <button
             onClick={clearFilters}
-            className="w-full text-center text-sm font-medium px-2 py-2 text-gray-500 hover:bg-gray-100 cursor-pointer transition-colors"
+            className="w-full text-center text-sm font-medium px-2 py-2 text-muted-foreground hover:bg-accent hover:text-accent-foreground cursor-pointer transition-colors"
             aria-label="Clear all filters"
             >
             Clear Filters

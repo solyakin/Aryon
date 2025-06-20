@@ -20,13 +20,16 @@ interface RecommendationTopProps {
 
 const RecommendationTop = ({ data, searchQuery, setSearchQuery, selectedTags, setSelectedTags }: RecommendationTopProps) => {
   return (
-    <header className="sticky top-0 z-30 bg-gray-100 pb-5" role="banner">
+    <header className="sticky top-0 z-30 bg-background text-foreground pb-5" role="banner">
       <div className="space-y-4">
         <nav aria-label="Breadcrumb navigation">
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
-                <BreadcrumbLink href="/recommendations" aria-label="Go to recommendations">
+                <BreadcrumbLink 
+                className="text-muted-foreground"
+                href="/recommendations" 
+                aria-label="Go to recommendations">
                   Recommendations
                 </BreadcrumbLink>
               </BreadcrumbItem>
@@ -35,7 +38,7 @@ const RecommendationTop = ({ data, searchQuery, setSearchQuery, selectedTags, se
               </BreadcrumbSeparator>
               <BreadcrumbItem>
                 <BreadcrumbLink 
-                  className="text-gray-600 font-medium" 
+                  className="text-muted-foreground font-medium" 
                   href="/recommendations/archive"
                   aria-current="page"
                   aria-label="Current page: Archived recommendations"

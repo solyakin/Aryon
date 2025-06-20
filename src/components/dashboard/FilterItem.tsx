@@ -17,7 +17,7 @@ const FilterItem = ({ title, category, availableTags, selectedFilters, handleFil
           {title}
           <span className="sr-only">{availableTags?.length} options available</span>
         </legend>
-        <p className="text-xs text-gray-600 font-semibold py-1 px-2 bg-gray-100 rounded-full" aria-label={`${availableTags?.length} options`}>
+        <p className="text-xs text-foreground font-semibold py-1 px-2 bg-background rounded-full" aria-label={`${availableTags?.length} options`}>
           {availableTags?.length}
         </p>
       </div>
@@ -38,7 +38,7 @@ const FilterItem = ({ title, category, availableTags, selectedFilters, handleFil
               />
               <label 
                 htmlFor={`${category}-${index}`} 
-                className="text-sm text-gray-700 cursor-pointer"
+                className="text-sm text-foreground cursor-pointer"
               >
                 {tag}
               </label>
