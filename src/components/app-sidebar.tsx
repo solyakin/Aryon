@@ -53,17 +53,17 @@ const data = {
     },
     {
       title: "Policies",
-      url: "#",
+      url: "/policies",
       icon: NotebookText,
     },
     {
       title: "Events",
-      url: "#",
+      url: "/events",
       icon: CalendarFold,
     },
     {
       title: "Waivers",
-      url: "#",
+      url: "/waivers",
       icon: BadgeInfo,
     },
   ],

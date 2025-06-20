@@ -1,15 +1,11 @@
-import { 
-  AppSidebar 
-} from "@/components/app-sidebar"
-import { 
-  SidebarInset, 
-  SidebarProvider 
-} from "@/components/ui/sidebar"
-import React from "react"
+
+import React from "react";
+import { AppSidebar } from "@/components/app-sidebar";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
 const ComingSoon = React.lazy(() => import("@/components/dashboard/ComingSoon"))
 
-const Dashboard = () => {
+const Waivers = () => {
   return (
     <div className="h-screen">
       <SidebarProvider className="flex flex-col">
@@ -28,7 +24,7 @@ const Dashboard = () => {
         </div>
       </SidebarProvider>
     </div>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Waivers;
