@@ -125,8 +125,8 @@ describe('SearchWrapper', () => {
     const checkbox = within(singleTag).getByTestId('filter-checkbox-0');
     expect(checkbox).toBeInTheDocument();
     
-    // await user.click(checkbox);
-    // expect(checkbox).toHaveAttribute('aria-checked', 'true');
+    await user.click(checkbox);
+    expect(checkbox).toHaveAttribute('aria-checked', 'true');
 
     // expect(checkbox).toBeChecked();
 
