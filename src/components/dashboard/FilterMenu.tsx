@@ -25,6 +25,7 @@ const FilterMenuList = ({ selectedTags, setSelectedTags }: FilterMenuListProps) 
     const { availableTags, selectedFilters, dispatch } = useRecommendationsContext();
 
     const handleFilterChange = (category: FilterCategory, value: string) => {
+        console.log("Filter change", category, value);
         if (selectedTags.includes(value)) {
             setSelectedTags(selectedTags.filter(tag => tag !== value));
             } else {

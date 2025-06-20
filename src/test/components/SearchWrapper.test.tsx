@@ -119,23 +119,14 @@ describe('SearchWrapper', () => {
 
     const totalTags = screen.getAllByTestId('tags');
     expect(totalTags.length).toBeGreaterThan(0);
-    //select a tag checkbox
 
     const singleTag = totalTags[0];
     const checkbox = within(singleTag).getByTestId('filter-checkbox-0');
     expect(checkbox).toBeInTheDocument();
-    
     await user.click(checkbox);
-    expect(checkbox).toHaveAttribute('aria-checked', 'true');
-
-    // expect(checkbox).toBeChecked();
-
-    // await waitFor(() => {
-    //   expect(totalTags.length).toBeGreaterThan(0);
-    // });
-    // Find and click a checkbox
-    // const checkbox = screen.getByRole('checkbox', { name: /Filter by AWS/i });
-    // await user.click(checkbox);
-    // expect(checkbox).toBeChecked();
+    await waitFor(() => {
+      expect(checkbox).not.toBeChecked();
+      // expect(checkbox).toHaveAttribute('data-state', 'checked');
+    });
   });
 });

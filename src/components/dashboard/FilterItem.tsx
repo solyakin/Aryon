@@ -10,7 +10,6 @@ export interface FilterItemProps {
     handleFilterChange: (filterType: FilterCategory, tag: string) => void;
 }
 const FilterItem = ({ title, category, availableTags, selectedFilters, handleFilterChange }: FilterItemProps) => {
-  console.log("Available Tags in FilterItem:", availableTags);
   return (
     <fieldset data-testid={`filter-${category}`} className="p-3" role="group" aria-labelledby={`filter-${category}-title`}>
       <div className="flex items-center justify-between mb-1">
