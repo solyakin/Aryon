@@ -85,8 +85,8 @@ const RecommendationsContent = () => {
     }, [data?.pages, dispatch]);
 
     return (
-    <div className="flex-1 py-4 px-4 md:px-8 bg-background text-foreground">
-        <div className="sticky top-0 z-30 bg-background pb-5">
+    <div className="flex-1 py-4 px-4 md:px-8 bg-gray-100">
+        <div className="sticky top-0 z-30 bg-gray-100 pb-5">
             <DashboardTitle 
             title="Recommendations"
             subtitle="View all recommendations"

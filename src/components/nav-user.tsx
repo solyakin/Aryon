@@ -1,10 +1,9 @@
+
 import {
   BadgeCheck,
   Bell,
   ChevronsUpDown,
   LogOut,
-  Moon,
-  Sun,
 } from "lucide-react"
 import {
   Avatar,
@@ -29,7 +28,6 @@ import {
 import { 
   useUserAuthContext
 } from "@/context/user/user-hooks"
-import { useTheme } from "@/context/theme/theme-context"
 
 export function NavUser({
   user,
@@ -41,8 +39,8 @@ export function NavUser({
   }
 }) {
   const { isMobile } = useSidebar()
+
   const { dispatch } = useUserAuthContext()
-  const { theme, toggleTheme } = useTheme()
 
   const handleLogout = () => {
     dispatch({ type: "LOG_OUT" });
@@ -89,21 +87,17 @@ export function NavUser({
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <BadgeCheck className="mr-2" />
+                <BadgeCheck />
                 Account
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Bell className="mr-2" />
+                <Bell />
                 Notifications
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={toggleTheme}>
-                {theme === 'light' ? <Moon className="mr-2" /> : <Sun className="mr-2" />}
-                {theme === 'light' ? 'Dark' : 'Light'} theme
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleLogout}>
-              <LogOut className="mr-2" />
+              <LogOut />
               Log out
             </DropdownMenuItem>
           </DropdownMenuContent>

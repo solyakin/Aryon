@@ -34,8 +34,8 @@ const SearchWrapper = ({
       className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 md:gap-2 mt-5 mb-5"
     >
       <div role="search" className="flex flex-col sm:flex-row items-start sm:items-center gap-2 w-full md:w-auto">
-        <div className="flex items-center gap-2 border border-input bg-card rounded-sm p-2 w-full sm:w-auto">
-          <Search className="size-4 flex-shrink-0 text-muted-foreground" aria-hidden="true" />
+        <div className="flex items-center gap-2 border border-gray-300 bg-white rounded-sm p-2 w-full sm:w-auto">
+          <Search className="size-4 flex-shrink-0" aria-hidden="true" />
           <label htmlFor="search-input" className="sr-only">Search recommendations</label>
           <input
             id="search-input"
@@ -44,7 +44,7 @@ const SearchWrapper = ({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search recommendations..."
-            className="border-none outline-none focus:ring-0 bg-transparent w-full sm:w-[300px] text-foreground placeholder:text-muted-foreground"
+            className="border-none outline-none focus:ring-0 bg-transparent w-full sm:w-[300px] text-gray-700"
             aria-label="Search recommendations"
           />
         </div>
@@ -54,7 +54,7 @@ const SearchWrapper = ({
         />
       </div>
       <div className="flex items-center gap-4 w-full md:w-auto md:justify-end md:text-right">
-        <p className="text-muted-foreground text-sm" role="status" aria-live="polite">
+        <p className="text-gray-600 text-sm" role="status" aria-live="polite">
           Showing {count} of {totalCount} results
         </p>
       </div>
