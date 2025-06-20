@@ -11,9 +11,7 @@ export const getCSPDirectives = () => {
       process.env.NODE_ENV === 'development' ? 'ws:' : '', // For WebSocket in development
       'https://*.vercel.app', // For Vercel deployments
       'https://aronserver-2.onrender.com', // API domain
-      'https://*.onrender.com', // Allow all subdomains on onrender.com
-      import.meta.env.VITE_API_BASE_URL || '', // Dynamically include the API URL from env
-    ].filter(Boolean),
+    ],
     'frame-ancestors': ["'none'"],
     'form-action': ["'self'"],
     'base-uri': ["'self'"],
