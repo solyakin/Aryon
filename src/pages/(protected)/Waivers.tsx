@@ -3,10 +3,12 @@ import React from "react";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
-const ComingSoon = React.lazy(() => import("@/components/dashboard/ComingSoon"))
+const ErrorBoundary = React.lazy(() => import("@/components/ErrorBoundary"));
+const ComingSoon = React.lazy(() => import("@/components/dashboard/ComingSoon"));
 
 const Waivers = () => {
   return (
+    <ErrorBoundary>
     <div className="h-screen">
       <SidebarProvider className="flex flex-col">
         <div className="flex flex-col lg:flex-row flex-1">
@@ -24,6 +26,7 @@ const Waivers = () => {
         </div>
       </SidebarProvider>
     </div>
+    </ErrorBoundary>
   );
 };
 

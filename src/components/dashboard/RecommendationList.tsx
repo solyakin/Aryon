@@ -14,6 +14,7 @@ interface RecommendationListProps {
 }
 
 const RecommendationList = ({data, inViewRef, isFetchingNextPage, status, hasNextPage, type}: RecommendationListProps) => {
+    console.log("RecommendationList rendered with status:", status, "and type:", type);
   return (
     <div className="">
         <div className="space-y-3">

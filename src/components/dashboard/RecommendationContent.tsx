@@ -7,7 +7,6 @@ import { useUserAuthContext } from "@/context/user/user-hooks";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { RecommendationsAction } from "@/context/recommendations/types";
 import { useRecommendationsContext } from "@/context/recommendations/recommendations-hooks";
-import ErrorBoundary from "../ErrorBoundary";
 
 const SearchWrapper = React.lazy(() => import('@/components/dashboard/SearchWrapper'));
 const DashboardTitle = React.lazy(() => import('@/components/dashboard/DashboardTitle'));
@@ -55,17 +54,27 @@ const RecommendationsContent = () => {
         initialPageParam: null as string | null
     });
 
+
+    // Memoize the recommendations data to avoid unnecessary re-renders
     const memoizedRecommendations: GlobalResponseState | undefined = useMemo(() => {
       if (!data) return;
       return data as GlobalResponseState;
     }, [data]);
 
+    // Effect to fetch next page when in view
+    // and there are more pages to fetch
+    // This will trigger when the user scrolls to the bottom of the list
+    // and there are more recommendations to load
     useEffect(() => {
         if (inView && hasNextPage) {
         fetchNextPage();
         }
     }, [inView, hasNextPage, fetchNextPage]);
 
+
+    // Effect to set available tags in the context when the data is fetched
+    // This will ensure that the available tags are set only once when the data is fetched
+    // and not on every render
     useEffect(() => {
         if (data?.pages?.[0]?.availableTags) {
         dispatch({
@@ -73,24 +82,24 @@ const RecommendationsContent = () => {
             payload: data.pages[0].availableTags
         });
         }
-    }, [data?.pages, dispatch]); 
+    }, [data?.pages, dispatch]);
+
     return (
-    <ErrorBoundary>
-      <div className="flex-1 py-4 px-4 md:px-8 bg-gray-100">
+    <div className="flex-1 py-4 px-4 md:px-8 bg-gray-100">
         <div className="sticky top-0 z-30 bg-gray-100 pb-5">
-          <DashboardTitle 
-              title="Recommendations"
-              subtitle="View all recommendations"
-              link="/recommendations/archive"
-              actionLabel="Archived"
-          />
+            <DashboardTitle 
+            title="Recommendations"
+            subtitle="View all recommendations"
+            link="/recommendations/archive"
+            actionLabel="Archived"
+            />
         </div>
         <SearchWrapper 
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
             count={Math.min(
-              data?.pages?.length ? data.pages.length * PAGE_SIZE : 0,
-              data?.pages[0]?.pagination?.totalItems || 0
+                data?.pages?.length ? data.pages.length * PAGE_SIZE : 0,
+                data?.pages[0]?.pagination?.totalItems || 0
             )}
             totalCount={data?.pages[0]?.pagination?.totalItems || 0}
             setSelectedTags={setSelectedTags}
@@ -104,8 +113,7 @@ const RecommendationsContent = () => {
             status={status}
             hasNextPage={hasNextPage}
         />
-      </div>
-    </ErrorBoundary>
+    </div>
   );
 }
 
